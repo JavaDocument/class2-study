@@ -2,13 +2,16 @@ package level3.module.config;
 
 import level3.module.Solution;
 import level3.module.domain.AlgorithmSolver;
+import level3.module.domain.ArrayToStringConverter;
 import level3.module.domain.PrimeNumbersFinder;
 import level3.module.domain.input.ConsoleReader;
 
 public class SolutionConfigFactory {
     private static Solution solution;
-    private static AlgorithmSolver primeNumbersFinder;
+    private static AlgorithmSolver algorithmSolver;
     private static ConsoleReader consoleReader;
+    private static ArrayToStringConverter arrayToStringConverter;
+    private static PrimeNumbersFinder primeNumbersFinder;
 
     private SolutionConfigFactory() {
     }
@@ -19,10 +22,10 @@ public class SolutionConfigFactory {
     }
 
     private static Solution createAlgorithmSolver() {
-        if (primeNumbersFinder == null) {
-            primeNumbersFinder = AlgorithmSolver.newInstance(createConsoleReader(), createPrimeNumbersFinder());
+        if (algorithmSolver == null) {
+            algorithmSolver = AlgorithmSolver.newInstance(createConsoleReader(), createPrimeNumbersFinder(), createArrayToStringConverter());
         }
-        return primeNumbersFinder;
+        return algorithmSolver;
     }
 
     private static ConsoleReader createConsoleReader() {
@@ -33,7 +36,17 @@ public class SolutionConfigFactory {
     }
 
     private static PrimeNumbersFinder createPrimeNumbersFinder() {
-        return PrimeNumbersFinder.newInstance();
+        if (primeNumbersFinder == null) {
+            primeNumbersFinder = PrimeNumbersFinder.newInstance();
+        }
+        return primeNumbersFinder;
+    }
+
+    private static ArrayToStringConverter createArrayToStringConverter() {
+        if (arrayToStringConverter == null) {
+            arrayToStringConverter = ArrayToStringConverter.newInstance();
+        }
+        return arrayToStringConverter;
     }
 
 }
