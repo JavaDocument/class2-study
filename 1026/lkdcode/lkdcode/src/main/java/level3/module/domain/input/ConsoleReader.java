@@ -1,9 +1,8 @@
 package level3.module.domain.input;
 
-import java.util.Scanner;
+import static common.Console.readLine;
 
 public class ConsoleReader {
-    private final Scanner scanner = new Scanner(System.in);
 
     private ConsoleReader() {
     }
@@ -13,7 +12,7 @@ public class ConsoleReader {
     }
 
     public String read() {
-        return scanner.nextLine();
+        return readLine();
     }
 
 }
