@@ -5,19 +5,26 @@ import level1.core.Calculator;
 import level1.input.ConsoleInputHandler;
 
 public class AppConfigFactory {
+    private static Controller controller;
+    private static Calculator calculator;
+    private static ConsoleInputHandler consoleInputHandler;
 
     private AppConfigFactory() {
     }
 
     public static Controller generateController() {
-        return new Controller(generateCalculator(), generateConsoleInputHandler());
+        if (controller == null) controller = new Controller(generateCalculator(), generateConsoleInputHandler());
+        return controller;
     }
 
-    public static Calculator generateCalculator() {
-        return new Calculator();
+    private static Calculator generateCalculator() {
+        if (calculator == null) calculator = new Calculator();
+        return calculator;
     }
 
-    public static ConsoleInputHandler generateConsoleInputHandler() {
-        return new ConsoleInputHandler();
+    private static ConsoleInputHandler generateConsoleInputHandler() {
+        if (consoleInputHandler == null) consoleInputHandler = new ConsoleInputHandler();
+        return consoleInputHandler;
     }
+
 }
