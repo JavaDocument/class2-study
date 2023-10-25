@@ -6,30 +6,32 @@ import level3.module.domain.input.ConsoleReader;
 public class AlgorithmSolver implements Solution {
     private final ConsoleReader consoleReader;
     private final PrimeNumbersFinder primeNumbersFinder;
-    private final ArrayToStringConverter arrayToStringConverter = ArrayToStringConverter.newInstance();
+    private final ArrayToStringConverter arrayToStringConverter;
 
-    private AlgorithmSolver(final ConsoleReader consoleHandler, final PrimeNumbersFinder primeNumbersFinder) {
+    private AlgorithmSolver(final ConsoleReader consoleHandler, final PrimeNumbersFinder primeNumbersFinder, final ArrayToStringConverter arrayToStringConverter) {
         this.consoleReader = consoleHandler;
         this.primeNumbersFinder = primeNumbersFinder;
+        this.arrayToStringConverter = arrayToStringConverter;
     }
 
-    public static AlgorithmSolver newInstance(final ConsoleReader consoleReader, final PrimeNumbersFinder primeNumbersFinder) {
-        return new AlgorithmSolver(consoleReader, primeNumbersFinder);
+    public static AlgorithmSolver newInstance(final ConsoleReader consoleReader, final PrimeNumbersFinder primeNumbersFinder, final ArrayToStringConverter arrayToStringConverter) {
+        return new AlgorithmSolver(consoleReader, primeNumbersFinder, arrayToStringConverter);
     }
 
     @Override
     public void process() {
+        final String EXIT_COMMAND = "-1";
         while (true) {
             printInputNumber();
-            String inputNumber = consoleReader.read();
-            if (inputNumber.equals("-1")) {
+            final String inputNumber = consoleReader.read();
+            if (inputNumber.equals(EXIT_COMMAND)) {
                 printExitMessage();
                 return;
             }
-            boolean[] primeNumbers = primeNumbersFinder.getPrimesInRangeFrom(Integer.parseInt(inputNumber));
+            final boolean[] primeNumbers = primeNumbersFinder.getPrimesInRangeFrom(Integer.parseInt(inputNumber));
 
-            String s = arrayToStringConverter.booleanArrayToStringConverter(primeNumbers);
-            printResultMessage(s);
+            String result = arrayToStringConverter.booleanArrayToStringConverter(primeNumbers);
+            printResultMessage(result);
         }
     }
 
