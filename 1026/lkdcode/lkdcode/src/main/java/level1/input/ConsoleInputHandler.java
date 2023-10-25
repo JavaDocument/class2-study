@@ -1,13 +1,10 @@
 package level1.input;
 
-import java.util.Scanner;
+import static common.Console.readLine;
 
 public class ConsoleInputHandler {
 
-    private final Scanner scanner;
-
     public ConsoleInputHandler() {
-        this.scanner = new Scanner(System.in);
     }
 
     public int getNumberInput(final int inputCount) {
@@ -28,7 +25,7 @@ public class ConsoleInputHandler {
     }
 
     private int readIntegerFromUserInput() throws NumberFormatException {
-        return Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(readLine());
     }
 
     private void validateNonZeroNumber(final int inputNumber) throws ArithmeticException {
