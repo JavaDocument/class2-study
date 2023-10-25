@@ -1,16 +1,22 @@
 package level1.input;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import static common.Console.close;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConsoleInputHandlerTest {
     private final int FIRST_INPUT_COUNT = 1;
-    private final int SECOND_INPUT_COUNT = 2;
+
+    @BeforeEach
+    void consoleClose() {
+        close();
+    }
 
     @Test
     @DisplayName("콘솔 입력에 성공할 것이다.")
@@ -23,7 +29,6 @@ class ConsoleInputHandlerTest {
 
         // when
         int numberInput = consoleInputHandler.getNumberInput(FIRST_INPUT_COUNT);
-
 
         // then
         assertThat(Integer.parseInt(simulatedInput)).isEqualTo(numberInput);
