@@ -1,6 +1,6 @@
 package Hazel0c0.level1;
 
-import Hazel0c0.level1.Calculator.CalculatorService;
+import Hazel0c0.level1.calculator.CalculatorService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication

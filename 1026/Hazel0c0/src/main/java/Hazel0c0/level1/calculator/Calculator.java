@@ -1,4 +1,4 @@
-package Hazel0c0.level1.Calculator;
+package Hazel0c0.level1.calculator;
 
 import java.util.InputMismatchException;
 
