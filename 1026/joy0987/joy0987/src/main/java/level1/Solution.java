@@ -1,36 +1,60 @@
 package main.java.level1;
 
-// level 1-3
-// 양의 정수를 입력받고 1부터 해당 입력값 사이의 모든 소수를 출력합니다.
-// (조건: -1을 입력하면 프로그램을 종료하며, 소수 판별 함수에 메모이제이션 기법을 적용하여 최적화 합니다.)
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Solution {
 
     private boolean[] isPrime;
-    private StringBuilder sb;
 
-    public void solution (int input) {
-        if (input == -1) {
-            System.exit(0);
+    public void solution() {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        while (true) {
+            System.out.print("== 입력 ==\n숫자 입력 : ");
+            int input = 0;
+
+            try {
+                input = Integer.parseInt(br.readLine());
+                if (input == -1) {
+                    break;
+                }
+            } catch (IOException e) {
+                 System.out.println("정수를 입력해주세요");
+                 continue;
+            } catch (NumberFormatException e) {
+                System.out.println("올바른 정수를 입력해주세요");
+                continue;
+            }
+
+            isPrime = new boolean[input + 1];
+            isPrime[0] = true;
+            isPrime(input);
+
+            sb.append("== 결과 ==\n");
+            for (int i = 1; i < isPrime.length; i++) {
+                if (!isPrime[i]) {
+                    sb.append("- ").append(i).append(" \n");
+                }
+            }
+
+            System.out.println(sb);
+            sb.setLength(0);
         }
 
-        sb = new StringBuilder();
-        isPrime = new boolean[input + 1];
-        isPrime[0] = true;
+        System.out.println("== 종료 ==");
+    }
 
-        for (int i = 2; i <= Math.sqrt(input); i++) {
+    private void isPrime(int num) {
+        for (int i = 2; i <= Math.sqrt(num); i++) {
             if (isPrime[i]) {
                 continue;
             }
-            for (int j = i + i; j <= input; j += i) {
+            for (int j = i + i; j <= num; j += i) {
                 isPrime[j] = true;
             }
         }
-
-        for (int i = 1; i < isPrime.length; i++) {
-            if (!isPrime[i]) sb.append(i).append(' ');
-        }
-
-        System.out.println(sb);
     }
-
 }
