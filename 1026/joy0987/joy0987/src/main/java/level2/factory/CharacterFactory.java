@@ -1,10 +1,11 @@
-package main.java.level2.factory;
+package level2.factory;
 
-import main.java.level2.character.Character;
-import main.java.level2.character.Warrior;
-import main.java.level2.character.Wizard;
-import main.java.level2.weapon.Bow;
-import main.java.level2.weapon.IceStick;
+
+import level2.character.Character;
+import level2.character.Warrior;
+import level2.character.Wizard;
+import level2.weapon.Bow;
+import level2.weapon.IceStick;
 
 import java.util.HashMap;
 import java.util.Map;

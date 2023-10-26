@@ -1,13 +1,9 @@
-package main.java;
-
-import main.java.level2.character.Character;
-import main.java.level2.character.Wizard;
-import main.java.level2.factory.CharacterFactory;
-import main.java.level2.weapon.Bow;
-import main.java.level2.character.Warrior;
+import level2.character.Character;
+import level2.factory.CharacterFactory;
 
 public class Application {
     public static void main(String[] args) {
+
         Character ac = CharacterFactory.get("칼전사");
 
         ac.attack();

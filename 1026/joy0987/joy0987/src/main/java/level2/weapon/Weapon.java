@@ -1,6 +1,4 @@
-package main.java.level2.weapon;
-
-import main.java.level2.character.Character;
+package level2.weapon;
 
 public abstract class Weapon {
 

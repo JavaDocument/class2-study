@@ -1,7 +1,8 @@
-package main.java.level2.character;
+package level2.character;
 
-import main.java.level2.weapon.Sword;
-import main.java.level2.weapon.Weapon;
+
+import level2.weapon.Sword;
+import level2.weapon.Weapon;
 
 public class Warrior extends Character {
 

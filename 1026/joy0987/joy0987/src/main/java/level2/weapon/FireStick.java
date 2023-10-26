@@ -1,4 +1,4 @@
-package main.java.level2.weapon;
+package level2.weapon;
 
 public class FireStick extends Weapon {
 
