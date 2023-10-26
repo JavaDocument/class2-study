@@ -2,6 +2,40 @@
 
 ### 나의 생각
 
+```mermaid
+classDiagram
+    class Weapon
+    <<interface>> Weapon
+
+    class AbstractWeapon
+    <<abstract>> AbstractWeapon
+    AbstractWeapon ..|> Weapon
+
+    class Bow
+    Bow --|> AbstractWeapon
+    class FireWand
+    FireWand --|> AbstractWeapon
+    class IceWand
+    IceWand --|> AbstractWeapon
+    class Sword
+    Sword --|> AbstractWeapon
+```
+
+```mermaid
+classDiagram
+    class Champ
+    <<interface>> Champ
+
+    class AbstractChamp
+    <<abstract>> AbstractChamp
+    AbstractChamp ..|> Champ
+
+    class Warrior
+    Warrior --|> AbstractChamp
+    class Wizard
+    Wizard --|> AbstractChamp
+```
+
 ---
 
 <br/>

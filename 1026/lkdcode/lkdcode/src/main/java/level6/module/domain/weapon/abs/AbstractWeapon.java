@@ -6,9 +6,9 @@ import level6.module.domain.weapon.inter.Weapon;
 public abstract class AbstractWeapon implements Weapon {
 
     @Override
-    public void attack(Champ champ, Weapon weapon) {
+    public void attack(Champ champ) {
         String characterClassName = champ.getClass().getSimpleName();
-        String weaponName = weapon.getClass().getSimpleName();
+        String weaponName = getWeaponName();
 
         int champDamage = champ.getChampDamage();
         int weaponDamage = getWeaponDamage();
@@ -20,7 +20,7 @@ public abstract class AbstractWeapon implements Weapon {
                 .append(weaponName).append("(으)로 공격합니다.")
                 .append(System.lineSeparator());
         message.append("데미지 : ").append(characterClassName)
-                .append("기본 공격력(").append(champDamage).append(") * ")
+                .append(" 기본 공격력(").append(champDamage).append(") * ")
                 .append(weaponName).append(" 공격력(").append(weaponDamage)
                 .append(") => ").append(totalDamage)
                 .append(System.lineSeparator());
@@ -29,4 +29,7 @@ public abstract class AbstractWeapon implements Weapon {
     }
 
     protected abstract int getWeaponDamage();
+
+    protected abstract String getWeaponName();
+
 }
