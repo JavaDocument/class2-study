@@ -15,14 +15,9 @@ public class ScannerComponent {
       try {
         System.out.println("숫자를 입력하세요 : ");
         return scanner.nextInt();
-      } catch (InputMismatchException e) {
-        System.out.println("error : " + e);
-      } catch (Exception e) {
-        if (e.equals("ERROR : num2 cannot be zero")) {
-          System.out.println("0이 아닌");
-        }
-        System.out.println("정수를 입력해주세요");
-        System.out.println("ERROR message: " + e);
+      } catch (InputMismatchException  e) {
+        scanner.next();
+        System.out.print("정수인 ");
       }
     }
   }
