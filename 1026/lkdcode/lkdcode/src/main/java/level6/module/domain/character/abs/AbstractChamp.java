@@ -4,18 +4,13 @@ import level6.module.domain.character.inter.Champ;
 import level6.module.domain.weapon.inter.Weapon;
 
 public abstract class AbstractChamp implements Champ {
-    private Weapon weapon = initializeWeapon();
 
     @Override
     public void attack() {
-        weapon.attack(this, weapon);
+        Weapon weapon = getChampWeapon();
+        weapon.attack(this);
     }
 
-    @Override
-    public void changeWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
-
-    protected abstract Weapon initializeWeapon();
+    protected abstract Weapon getChampWeapon();
 
 }
