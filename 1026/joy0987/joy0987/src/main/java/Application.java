@@ -1,7 +1,10 @@
 package main.java;
 
+import main.java.level1.Solution;
+
 public class Application {
     public static void main(String[] args) {
-        System.out.println("하이");
+        Solution s = new Solution();
+        s.solution(29328);
     }
 }
