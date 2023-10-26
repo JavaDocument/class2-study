@@ -1,4 +1,3 @@
-
 import level2.character.Character;
 import level2.factory.CharacterFactory;
 
