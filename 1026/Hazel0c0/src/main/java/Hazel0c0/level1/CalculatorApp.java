@@ -1,13 +1,14 @@
 package Hazel0c0.level1;
 
-import org.springframework.boot.SpringApplication;
+import Hazel0c0.level1.Calculator.CalculatorService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CalculatorApp {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CalculatorApp.class, args);
+	public static void main(String[] args)  {
+		CalculatorService cc=new CalculatorService();
+		cc.run();
 	}
 
 }
