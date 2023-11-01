@@ -4,6 +4,7 @@ import level6.module.domain.weapon.abs.AbstractWeapon;
 
 public class FireWand extends AbstractWeapon {
     private static final String NAME = "불지팡이";
+    private static final int DAMAGE = 50;
 
     private FireWand() {
     }
@@ -14,7 +15,7 @@ public class FireWand extends AbstractWeapon {
 
     @Override
     protected int getWeaponDamage() {
-        return 50;
+        return DAMAGE;
     }
 
     @Override

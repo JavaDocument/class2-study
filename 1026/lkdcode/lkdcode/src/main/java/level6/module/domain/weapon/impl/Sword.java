@@ -4,6 +4,7 @@ import level6.module.domain.weapon.abs.AbstractWeapon;
 
 public class Sword extends AbstractWeapon {
     private static final String NAME = "칼";
+    private static final int DAMAGE = 20;
 
     private Sword() {
     }
@@ -14,7 +15,7 @@ public class Sword extends AbstractWeapon {
 
     @Override
     protected int getWeaponDamage() {
-        return 20;
+        return DAMAGE;
     }
 
     @Override

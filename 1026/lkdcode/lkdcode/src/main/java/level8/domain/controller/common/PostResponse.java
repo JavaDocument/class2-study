@@ -4,6 +4,8 @@ package level8.domain.controller.common;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @JsonPropertyOrder({"resultCode", "msg", "data"})
 @JsonInclude(JsonInclude.Include.NON_NULL)

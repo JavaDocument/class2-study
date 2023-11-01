@@ -4,6 +4,7 @@ import level6.module.domain.weapon.abs.AbstractWeapon;
 
 public class IceWand extends AbstractWeapon {
     private static final String NAME = "얼음지팡이";
+    private static final int DAMAGE = 60;
 
     private IceWand() {
     }
@@ -14,7 +15,7 @@ public class IceWand extends AbstractWeapon {
 
     @Override
     protected int getWeaponDamage() {
-        return 60;
+        return DAMAGE;
     }
 
     @Override
