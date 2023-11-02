@@ -38,12 +38,12 @@ public class PostController {
     ) {
         log.info("[getPost] postId : {}", postId);
 
-//        try {
-//            PostResponseDTO responseDTO = postService.getPost(postId);
-//        } catch (NullPointerException e) {
-//            throw new NullPointerException("존재하지않는 게시글");
-//        }
-        return null;
+        try {
+            PostResponseDTO responseDTO = postService.getPost(postId);
+            return ResponseEntity.ok(responseDTO);
+        } catch (NullPointerException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping

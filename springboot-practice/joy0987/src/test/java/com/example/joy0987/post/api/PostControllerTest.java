@@ -33,7 +33,7 @@ class PostControllerTest {
 
     @Test
     @DisplayName("제목과 본문 중 하나라도 비어있을 시 http status가 400이어야한다.")
-    void getPostFail() {
+    void insertPostFail() {
         String content = null;
         PostRequestDTO requestDTO = new PostRequestDTO(
                 "title"
@@ -50,5 +50,13 @@ class PostControllerTest {
         ResponseEntity<?> responseEntity = postController.getPostList();
         assertNotNull(responseEntity.getBody());
         assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 게시글 조회 시 http status가 400이어야 한다.")
+    void getPostFail() {
+        int postId = 100;
+        ResponseEntity<?> responseEntity = postController.getPost(postId);
+        assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 }
