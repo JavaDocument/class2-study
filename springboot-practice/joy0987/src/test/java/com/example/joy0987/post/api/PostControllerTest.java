@@ -1,6 +1,10 @@
 package com.example.joy0987.post.api;
 
+import com.example.joy0987.post.dto.PostUpdateRequestDTO;
 import com.example.joy0987.post.dto.PostRequestDTO;
+import com.example.joy0987.post.entity.Post;
+import com.example.joy0987.post.repository.PostRepository;
+import com.example.joy0987.post.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,12 @@ class PostControllerTest {
 
     @Autowired
     private PostController postController;
+
+    @Autowired
+    private PostService postService;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Test
     @DisplayName("제목과 본문이 비어있지 않을 시 게시글 입력에 성공해야하고 http status가 200이어야한다.")
@@ -45,7 +55,7 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("게시글이 존재하는 경우 http status가 200이어야 하고 응답객체의 바디가 Null이 아니어야한다.")
+    @DisplayName("게시글이 한 건이라도 존재하는 경우 http status가 200이어야 하고 응답객체의 바디가 Null이 아니어야한다.")
     void getPostListSuccess() {
         ResponseEntity<?> responseEntity = postController.getPostList();
         assertNotNull(responseEntity.getBody());
@@ -59,4 +69,26 @@ class PostControllerTest {
         ResponseEntity<?> responseEntity = postController.getPost(postId);
         assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
+
+    @Test
+    @DisplayName("1번 게시글 제목을 updateTitle로 수정 후, 1번 게시글 조회 시 제목이 updateTitle이어야하며 http status가 200이어야한다.")
+    void updatePostSuccess() {
+        int postId = 1;
+        String title = "updateTitle";
+
+        Post post = postRepository.findById(postId).get();
+
+        PostUpdateRequestDTO postUpdateRequestDTO = PostUpdateRequestDTO.builder()
+                .postTitle(title)
+                .postContent(post.getPostContent())
+                .build();
+
+        ResponseEntity<?> responseEntity = postController.updatePost(postUpdateRequestDTO);
+
+        post = postRepository.findById(postId).get();
+
+        assertEquals(post.getPostTitle(), title);
+        assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+    }
+
 }
