@@ -24,4 +24,9 @@ public class Post {
     @Column(name = "POST_CONTENT", nullable = false, length = 10)
     private String postContent;
 
+    public void update(String title, String content) {
+        this.postTitle = title;
+        this.postContent = content;
+    }
+
 }

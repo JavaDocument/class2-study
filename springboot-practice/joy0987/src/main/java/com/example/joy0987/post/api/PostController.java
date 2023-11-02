@@ -1,5 +1,6 @@
 package com.example.joy0987.post.api;
 
+import com.example.joy0987.post.dto.PostUpdateRequestDTO;
 import com.example.joy0987.post.dto.PostRequestDTO;
 import com.example.joy0987.post.dto.PostResponseDTO;
 import com.example.joy0987.post.entity.Post;
@@ -7,7 +8,6 @@ import com.example.joy0987.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,6 +59,35 @@ public class PostController {
         try {
             Post saved = postService.insertPost(requestDTO);
             return ResponseEntity.ok(saved);
+        } catch (RuntimeException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updatePost(
+            @RequestBody PostUpdateRequestDTO requestDTO
+    ) {
+//        log.info("[updatePost] postId : {}", requestDTO.getPostId());
+//
+//        try {
+//            PostResponseDTO responseDTO = postService.updatePost(requestDTO);
+//            return ResponseEntity.ok(responseDTO);
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.internalServerError().body(e.getMessage());
+//        }
+        return null;
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<?> deletePost(
+            @PathVariable("postId") int postId
+    ) {
+        log.info("[deletePost] postId : {}", postId);
+
+        try {
+            postService.deletePost(postId);
+            return ResponseEntity.ok("Delete Success");
         } catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
