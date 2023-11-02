@@ -1,17 +1,17 @@
 package com.example.joy0987.post.dto;
 
 import com.example.joy0987.post.entity.Post;
+import lombok.*;
 
-public record PostRequestDTO (
-        String postTitle,
-        String postContent
-) {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class PostRequestDTO {
 
-    public PostRequestDTO {
-        if (postTitle == null || postContent == null) {
-            throw new NullPointerException("게시글 또는 내용이 비어있어");
-        }
-    }
+    private String postTitle;
+    private String postContent;
 
     public Post toEntity(PostRequestDTO requestDTO) {
         return Post.builder()

@@ -25,8 +25,8 @@ public class PostService {
 
     public Post insertPost(PostRequestDTO requestDTO) {
         Post saved = postRepository.save(Post.builder()
-                        .postTitle(requestDTO.postTitle())
-                        .postContent(requestDTO.postContent())
+                        .postTitle(requestDTO.getPostTitle())
+                        .postContent(requestDTO.getPostContent())
                         .build());
 
         return saved;

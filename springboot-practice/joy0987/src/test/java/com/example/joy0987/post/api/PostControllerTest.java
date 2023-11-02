@@ -1,11 +1,8 @@
 package com.example.joy0987.post.api;
 
 import com.example.joy0987.post.dto.PostRequestDTO;
-import com.example.joy0987.post.entity.Post;
-import com.example.joy0987.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,7 @@ class PostControllerTest {
     private PostController postController;
 
     @Test
-    @DisplayName("제목과 본문이 비어있지 않을 시 게시글 입력에 성공해야한다.")
+    @DisplayName("제목과 본문이 비어있지 않을 시 게시글 입력에 성공해야하고 http status가 200이어야한다.")
     void getPostSuccess() {
         PostRequestDTO requestDTO = new PostRequestDTO(
                 "title"
@@ -35,15 +32,15 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("제목과 본문 중 하나라도 비어있을 시 게시글 생성에 실패하고 NullPointException이 발생해야한다.")
+    @DisplayName("제목과 본문 중 하나라도 비어있을 시 http status가 400이어야한다.")
     void getPostFail() {
         String content = null;
+        PostRequestDTO requestDTO = new PostRequestDTO(
+                "title"
+                , content
+        );
 
-        assertThrows(NullPointerException.class, () -> {
-            new PostRequestDTO(
-                    "title"
-                    , content
-            );
-        });
+        ResponseEntity<?> responseEntity = postController.insertPost(requestDTO);
+        assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 }
