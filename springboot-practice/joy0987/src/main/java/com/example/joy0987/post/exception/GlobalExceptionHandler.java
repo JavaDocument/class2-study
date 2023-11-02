@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler (NullPointerException.class) // 특정 클래스에서 발생할 수 있는 예외를 catch
     public String handlerNullPointerException (final RuntimeException e) {
-        log.error("handlerRuntimeException : {}", e.getMessage());
+        log.error("handlerNullPointerException : {}", e.getMessage());
         return e.getMessage();
     }
 }

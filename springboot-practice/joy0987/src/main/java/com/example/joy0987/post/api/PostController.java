@@ -50,15 +50,17 @@ public class PostController {
     public ResponseEntity<?> insertPost(
         @RequestBody PostRequestDTO requestDTO
     ) {
-        log.info("[insertPost] postTitle : {}", requestDTO.postTitle());
+        log.info("[insertPost] postTitle : {}", requestDTO.getPostTitle());
+
+        if (requestDTO.getPostTitle() == null || requestDTO.getPostContent() == null) {
+            return ResponseEntity.badRequest().body("게시글 또는 내용이 비어있습니다.");
+        }
 
         try {
             Post saved = postService.insertPost(requestDTO);
             return ResponseEntity.ok(saved);
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException e) {
-            throw new RuntimeException("runtimeException");
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 }
