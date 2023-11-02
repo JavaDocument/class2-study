@@ -25,10 +25,10 @@ public class PostController {
         log.info("[getPostList]");
 
         try {
-            List<PostResponseDTO> responseDTO = postService.getPostList();
+            List<Post> responseDTO = postService.getPostList();
             return ResponseEntity.ok(responseDTO);
-        } catch (RuntimeException e) {
-            throw new RuntimeException("RuntimeException");
+        } catch (NullPointerException e) {
+            return ResponseEntity.badRequest().body("게시글이 존재하지 않습니다.");
         }
     }
 

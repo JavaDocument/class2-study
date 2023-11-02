@@ -19,8 +19,10 @@ public class PostService {
     @Autowired
     private final PostRepository postRepository;
 
-    public List<PostResponseDTO> getPostList() {
-        return null;
+    public List<Post> getPostList() {
+        List<Post> posts = postRepository.findAll();
+
+        return posts;
     }
 
     public Post insertPost(PostRequestDTO requestDTO) {

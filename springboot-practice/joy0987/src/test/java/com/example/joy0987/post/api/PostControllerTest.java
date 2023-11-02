@@ -43,4 +43,12 @@ class PostControllerTest {
         ResponseEntity<?> responseEntity = postController.insertPost(requestDTO);
         assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
+
+    @Test
+    @DisplayName("게시글이 존재하는 경우 http status가 200이어야 하고 응답객체의 바디가 Null이 아니어야한다.")
+    void getPostListSuccess() {
+        ResponseEntity<?> responseEntity = postController.getPostList();
+        assertNotNull(responseEntity.getBody());
+        assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+    }
 }
