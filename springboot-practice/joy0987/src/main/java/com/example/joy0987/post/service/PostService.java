@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -32,5 +33,19 @@ public class PostService {
                         .build());
 
         return saved;
+    }
+
+    public PostResponseDTO getPost(int postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> {
+            throw new NullPointerException("게시글이 존재하지 않습니다");
+        });
+
+        PostResponseDTO postResponseDTO = PostResponseDTO.builder()
+                .id(post.getPostId())
+                .title(post.getPostTitle())
+                .content(post.getPostContent())
+                .build();
+
+        return postResponseDTO;
     }
 }
