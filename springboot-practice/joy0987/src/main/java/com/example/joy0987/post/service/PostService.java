@@ -69,6 +69,11 @@ public class PostService {
     }
 
     public void deletePost(int postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> {
+            log.error("[존재하지 않는 게시글 삭제 요청] postId : {}", postId);
+            throw new NullPointerException("게시글이 존재하지 않습니다.");
+        });
+
         postRepository.deleteById(postId);
     }
 }

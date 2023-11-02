@@ -53,7 +53,7 @@ public class PostController {
         log.info("[insertPost] postTitle : {}", requestDTO.getPostTitle());
 
         if (requestDTO.getPostTitle() == null || requestDTO.getPostContent() == null) {
-            return ResponseEntity.badRequest().body("게시글 또는 내용이 비어있습니다.");
+            return ResponseEntity.badRequest().body("게시글 제목 또는 내용이 비어있습니다.");
         }
 
         try {
@@ -68,15 +68,18 @@ public class PostController {
     public ResponseEntity<?> updatePost(
             @RequestBody PostUpdateRequestDTO requestDTO
     ) {
-//        log.info("[updatePost] postId : {}", requestDTO.getPostId());
-//
-//        try {
-//            PostResponseDTO responseDTO = postService.updatePost(requestDTO);
-//            return ResponseEntity.ok(responseDTO);
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.internalServerError().body(e.getMessage());
-//        }
-        return null;
+        log.info("[updatePost] postId : {}", requestDTO.getPostId());
+
+        if (requestDTO.getPostTitle() == null || requestDTO.getPostContent() == null) {
+            return ResponseEntity.badRequest().body("게시글 제목 또는 내용이 비어있습니다.");
+        }
+
+        try {
+            PostResponseDTO responseDTO = postService.updatePost(requestDTO);
+            return ResponseEntity.ok(responseDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{postId}")

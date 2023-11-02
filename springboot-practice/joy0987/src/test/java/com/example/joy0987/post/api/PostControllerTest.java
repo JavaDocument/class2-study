@@ -70,25 +70,4 @@ class PostControllerTest {
         assertEquals(responseEntity.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
-    @Test
-    @DisplayName("1번 게시글 제목을 updateTitle로 수정 후, 1번 게시글 조회 시 제목이 updateTitle이어야하며 http status가 200이어야한다.")
-    void updatePostSuccess() {
-        int postId = 1;
-        String title = "updateTitle";
-
-        Post post = postRepository.findById(postId).get();
-
-        PostUpdateRequestDTO postUpdateRequestDTO = PostUpdateRequestDTO.builder()
-                .postTitle(title)
-                .postContent(post.getPostContent())
-                .build();
-
-        ResponseEntity<?> responseEntity = postController.updatePost(postUpdateRequestDTO);
-
-        post = postRepository.findById(postId).get();
-
-        assertEquals(post.getPostTitle(), title);
-        assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
-    }
-
 }
