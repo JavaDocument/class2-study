@@ -6,6 +6,8 @@ import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.post.domain.repository.PostRepository;
 import com.practice.lkdcode.module.post.service.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,15 +22,25 @@ public class PostService {
         return PostMapper.toResponseGetFromPost(post);
     }
 
-    public List<PostResponseDTO.Get> loadFindAll() {
-        List<Post> list = postRepository.findAll();
-        return PostMapper.toResponseGetAllFromPostList(list);
+    public List<PostResponseDTO.Get> loadFindAll(Pageable pageable) {
+//        Page<Post> page = postRepository.findTop100ByOrderByCreatedAtDesc(pageable);
+        Page<Post> page = postRepository.findAll(pageable);
+        return PostMapper.toResponseGetAllFromPostList(page);
+    }
+
+    public List<PostResponseDTO.Get> loadFindByTitleContaining(String keyword, Pageable pageable) {
+        Page<Post> page = postRepository.findByTitleContaining(keyword, pageable);
+        return PostMapper.toResponseGetAllFromPostList(page);
     }
 
     public PostResponseDTO.Create loadSave(final PostRequestDTO.Create request) {
+        for (int i = 0; i < 100; i++) {
+            Post post = PostMapper.toPostFromRequestCreate(request);
+            postRepository.save(post);
+        }
+
         Post post = PostMapper.toPostFromRequestCreate(request);
         Post saved = postRepository.save(post);
-
         return PostMapper.toResponseCreateFromPost(saved);
     }
 
