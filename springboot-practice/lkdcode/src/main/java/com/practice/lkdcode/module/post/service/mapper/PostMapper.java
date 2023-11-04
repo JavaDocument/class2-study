@@ -3,6 +3,7 @@ package com.practice.lkdcode.module.post.service.mapper;
 import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.domain.Post;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,39 +13,47 @@ public class PostMapper {
     }
 
     public static PostResponseDTO.Get toResponseGetFromPost(Post post) {
-        return new PostResponseDTO.Get(
-                post.getId(),
-                post.getTitle(),
-                post.getContent()
-        );
+        return PostResponseDTO.Get.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .build();
     }
 
     public static PostResponseDTO.Create toResponseCreateFromPost(Post post) {
-        return new PostResponseDTO.Create(
-                post.getId(),
-                post.getTitle(),
-                post.getContent()
-        );
+        return PostResponseDTO.Create.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .build();
     }
 
     public static PostResponseDTO.Update toResponseUpdateFromPost(Post post) {
-        return new PostResponseDTO.Update(
-                post.getId(),
-                post.getTitle(),
-                post.getContent()
-        );
+        return PostResponseDTO.Update.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .build();
     }
 
     public static PostResponseDTO.Delete toResponseDeleteFromPost(Post post) {
-        return new PostResponseDTO.Delete(
-                post.getId(),
-                post.getTitle(),
-                post.getContent()
-        );
+        return PostResponseDTO.Delete.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .build();
     }
 
-    public static List<PostResponseDTO.Get> toResponseGetAllFromPostList(List<Post> list) {
-        return list.stream()
+    public static List<PostResponseDTO.Get> toResponseGetAllFromPostList(Page<Post> page) {
+        return page.stream()
                 .map(PostMapper::toResponseGetFromPost)
                 .collect(Collectors.toList());
     }

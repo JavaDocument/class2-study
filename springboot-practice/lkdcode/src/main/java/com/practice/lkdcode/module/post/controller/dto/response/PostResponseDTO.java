@@ -2,6 +2,8 @@ package com.practice.lkdcode.module.post.controller.dto.response;
 
 import lombok.Builder;
 
+import java.time.LocalDateTime;
+
 import static com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO.*;
 
 public sealed interface PostResponseDTO permits Create, Update, Delete, Get {
@@ -9,7 +11,9 @@ public sealed interface PostResponseDTO permits Create, Update, Delete, Get {
     record Create(
             Long id,
             String title,
-            String content
+            String content,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
     ) implements PostResponseDTO {
     }
 
@@ -17,7 +21,10 @@ public sealed interface PostResponseDTO permits Create, Update, Delete, Get {
     record Update(
             Long id,
             String title,
-            String content
+            String content,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
+
     ) implements PostResponseDTO {
     }
 
@@ -25,7 +32,9 @@ public sealed interface PostResponseDTO permits Create, Update, Delete, Get {
     record Delete(
             Long id,
             String title,
-            String content
+            String content,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
     ) implements PostResponseDTO {
     }
 
@@ -33,7 +42,9 @@ public sealed interface PostResponseDTO permits Create, Update, Delete, Get {
     record Get(
             Long id,
             String title,
-            String content
+            String content,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
     ) implements PostResponseDTO {
     }
 
