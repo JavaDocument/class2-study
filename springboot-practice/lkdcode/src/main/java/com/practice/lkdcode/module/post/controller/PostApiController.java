@@ -6,6 +6,9 @@ import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +28,19 @@ public class PostApiController {
     }
 
     @GetMapping
-    public PostResponse<List<PostResponseDTO.Get>> getAllPosts() {
-        List<PostResponseDTO.Get> responseList = postService.loadFindAll();
+    public PostResponse<List<PostResponseDTO.Get>> getAllPosts(
+            @PageableDefault(size = 3, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        List<PostResponseDTO.Get> responseList = postService.loadFindAll(pageable);
+        return PostResponse.ok(responseList);
+    }
+
+    @GetMapping("/search/{keyword}")
+    public PostResponse<List<PostResponseDTO.Get>> retrievePostsByKeyword(
+            @PathVariable(name = "keyword") String keyword,
+            @PageableDefault(size = 3, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        List<PostResponseDTO.Get> responseList = postService.loadFindByTitleContaining(keyword, pageable);
         return PostResponse.ok(responseList);
     }
 
