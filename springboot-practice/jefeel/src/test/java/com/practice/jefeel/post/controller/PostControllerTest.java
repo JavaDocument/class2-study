@@ -2,10 +2,12 @@ package com.practice.jefeel.post.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.practice.jefeel.post.controller.dto.PostSaveRequestDTO;
-import com.practice.jefeel.post.controller.dto.PostUpdateRequestDTO;
-import com.practice.jefeel.post.domain.entity.Post;
-import com.practice.jefeel.post.domain.repository.PostRepository;
+import com.practice.jefeel.module.post.controller.PostController;
+import com.practice.jefeel.module.post.controller.dto.PostSaveRequestDTO;
+import com.practice.jefeel.module.post.controller.dto.PostUpdateRequestDTO;
+import com.practice.jefeel.module.post.domain.Post;
+import com.practice.jefeel.module.post.domain.repository.PostRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,9 +20,9 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -56,17 +58,16 @@ class PostControllerTest {
                 .content(content)
                 .build();
 
-
         //when
         mvc.perform(post("/api/v1/posts")
                         .contentType("application/json")
                         .content(new ObjectMapper().writeValueAsString(dto))
                 )
                 .andExpect(status().isOk());
-//        mvc.perform(post("/api/v1/posts").contentType(content)).andExpect(status().isOk());
         //then
         System.out.println("저장성공");
     }
+
     @Test
     @DisplayName("controller update test")
     void controllerUpdateTest() throws Exception {
@@ -92,18 +93,38 @@ class PostControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(updatedPost)));
 
-//        // when
-//        ResultActions result = mockMvc.perform(put(url, savedArticle.getId())
-//                .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .content(objectMapper.writeValueAsString(request)));
-
-//// then
         result.andExpect(status().isOk());
+
         //then
         List<Post> postList = repository.findAll();
 
         assertEquals(postList.get(0).getTitle(), updatedPost.getTitle());
         assertEquals(postList.get(0).getContent(), updatedPost.getContent());
+    }
+
+    // 실패 테스트 코드도 고려
+
+    @Test
+    @DisplayName("controller delete test")
+    void controllerDeleteTest() throws Exception {
+        //given
+        Post post = repository.save(Post.builder()
+                .title("테스트 제목1")
+                .content("테스트 내용1")
+                .build());
+
+        Long id = post.getId();
+
+        //when
+        ResultActions result = mvc.perform(delete("/api/v1/posts/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE));
+
+        result.andExpect(status().isOk());
+
+        //then
+        List<Post> deletedPost = repository.findAll();
+        assertThat(deletedPost).isEmpty();
     }
 
 }
