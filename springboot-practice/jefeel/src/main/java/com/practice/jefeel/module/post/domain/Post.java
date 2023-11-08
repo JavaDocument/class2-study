@@ -1,4 +1,4 @@
-package com.practice.jefeel.post.domain.entity;
+package com.practice.jefeel.module.post.domain;
 
 
 import jakarta.persistence.*;
