@@ -1,9 +1,8 @@
 package com.practice.jefeel.post.domain.repository;
 
 
-import com.practice.jefeel.post.domain.entity.Post;
-import org.aspectj.lang.annotation.After;
-import org.junit.jupiter.api.AfterAll;
+import com.practice.jefeel.module.post.domain.Post;
+import com.practice.jefeel.module.post.domain.repository.PostRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
