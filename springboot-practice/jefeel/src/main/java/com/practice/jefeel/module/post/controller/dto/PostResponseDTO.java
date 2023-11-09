@@ -1,7 +1,7 @@
-package com.practice.jefeel.post.controller.dto;
+package com.practice.jefeel.module.post.controller.dto;
 
 
-import com.practice.jefeel.post.domain.entity.Post;
+import com.practice.jefeel.module.post.domain.Post;
 import lombok.Getter;
 
 
@@ -17,4 +17,10 @@ public class PostResponseDTO {
         this.title = entity.getTitle();
         this.content = entity.getContent();
     }
+
+    // 개별 조회인지, 전체조회인지 네이밍 변경
+    // ex. detailresponsedto
+
+
+
 }

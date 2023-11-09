@@ -1,4 +1,4 @@
-package com.practice.jefeel.post.domain.entity;
+package com.practice.jefeel.module.post.domain;
 
 
 import jakarta.persistence.*;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Post {
+public class Post extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
