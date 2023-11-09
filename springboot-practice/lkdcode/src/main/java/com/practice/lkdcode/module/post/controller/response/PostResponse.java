@@ -1,4 +1,4 @@
-package com.practice.lkdcode.global.response;
+package com.practice.lkdcode.module.post.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

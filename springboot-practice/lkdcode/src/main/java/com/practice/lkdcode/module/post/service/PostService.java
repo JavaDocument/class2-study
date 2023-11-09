@@ -4,6 +4,8 @@ import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.post.domain.repository.PostRepository;
+import com.practice.lkdcode.module.post.exception.PostErrorCode;
+import com.practice.lkdcode.module.post.exception.custom.PostNotFoundByIdException;
 import com.practice.lkdcode.module.post.service.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -61,7 +63,7 @@ public class PostService {
     private Post getPost(Long id) {
         return postRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("존재하지 않는 게시글 번호 입니다. [id : " + id + "]"));
+                        new PostNotFoundByIdException(PostErrorCode.NOT_FOUND_POST_BY_ID_ERROR, id));
     }
 
 }
