@@ -69,6 +69,26 @@ class PostControllerTest {
     }
 
     @Test
+    @DisplayName("controller find by id test")
+    void controllerFindByIdTest() throws Exception {
+        //given
+        Long id = 1L;
+        Post post = repository.save(Post.builder()
+                .title("테스트 제목")
+                .content("테스트 내용")
+                .build());
+
+        //when
+        ResultActions resultActions = mvc.perform(get("/api/v1/posts/"+id)
+                .accept(MediaType.APPLICATION_JSON_VALUE));
+
+        //then
+        resultActions.andExpect(status().isOk());
+        assertEquals(id, post.getId());
+        System.out.println(post.getCreatedDate());
+    }
+
+    @Test
     @DisplayName("controller update test")
     void controllerUpdateTest() throws Exception {
         //given

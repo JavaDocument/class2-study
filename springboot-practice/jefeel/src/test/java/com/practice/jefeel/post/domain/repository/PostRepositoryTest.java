@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -45,5 +47,26 @@ class PostRepositoryTest {
         System.out.println("assert title test : " + title);
         assertEquals(post.getContent(), content);
         System.out.println("assert content test : " + content);
+    }
+
+    @Test
+    @DisplayName("post creation date test")
+    void creationDateTest() {
+        //given
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        repository.save(Post.builder()
+                .title("생성시간 제목")
+                .content("생성시간 내용")
+                .build());
+        //when
+        List<Post> posts = repository.findAll();
+
+        //then
+        Post post = posts.get(0);
+
+        System.out.println("게시글 생성날짜 : "+post.getCreatedDate());
+
+        assertThat(post.getCreatedDate()).isAfter(currentTime);
     }
 }
