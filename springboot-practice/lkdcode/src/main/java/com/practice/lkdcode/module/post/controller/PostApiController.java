@@ -1,8 +1,8 @@
 package com.practice.lkdcode.module.post.controller;
 
-import com.practice.lkdcode.global.response.PostResponse;
 import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
+import com.practice.lkdcode.module.post.controller.response.PostResponse;
 import com.practice.lkdcode.module.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("posts")
 @RequiredArgsConstructor
 public class PostApiController {
     private final PostService postService;
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public PostResponse<PostResponseDTO.Get> getPostById(
             @PathVariable(name = "id") final Long id
     ) {
@@ -60,7 +60,7 @@ public class PostApiController {
         return PostResponse.ok(response);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public PostResponse<PostResponseDTO.Update> updatePost(
             @PathVariable(name = "id") final Long id,
             @RequestBody @Valid final PostRequestDTO.Update request
