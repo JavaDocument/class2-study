@@ -27,9 +27,11 @@ public class AccountController {
         return ResponseEntity.ok(accountService.login(requestDto));
     }
 
+    // TODO: Security와 Filter에서 토큰 검사하기
+
     @GetMapping
     public ResponseEntity<?> getAccountDetail(@RequestHeader("Authorization") String token) {
-        return ResponseEntity.ok(accountService.getAccountDetail(token)); // 임시로 넣은 값. 추후 삭제 예정.
+        return ResponseEntity.ok(accountService.getAccountDetail(token));
     }
 
 }

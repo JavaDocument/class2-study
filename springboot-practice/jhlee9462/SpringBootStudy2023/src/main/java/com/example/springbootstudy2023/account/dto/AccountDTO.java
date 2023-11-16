@@ -1,7 +1,7 @@
 package com.example.springbootstudy2023.account.dto;
 
 import com.example.springbootstudy2023.account.entity.Account;
-import com.example.springbootstudy2023.account.utils.JwtUtil;
+import com.example.springbootstudy2023.global.utils.JwtUtil;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;

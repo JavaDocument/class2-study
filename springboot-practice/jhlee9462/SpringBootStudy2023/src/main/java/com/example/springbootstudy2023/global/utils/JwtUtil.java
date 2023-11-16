@@ -1,4 +1,4 @@
-package com.example.springbootstudy2023.account.utils;
+package com.example.springbootstudy2023.global.utils;
 
 import com.example.springbootstudy2023.account.entity.Account;
 import io.jsonwebtoken.Claims;
@@ -22,7 +22,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 .subject(String.valueOf(account.getId()))
-                .expiration(new Date(System.currentTimeMillis() + EXPIRE_TIME))
+                .expiration(new Date(System.currentTimeMillis() + EXPIRE_TIME * 1000))
                 .signWith(key)
                 .compact();
     }
