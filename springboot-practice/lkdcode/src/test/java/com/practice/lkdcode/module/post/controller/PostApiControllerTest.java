@@ -6,8 +6,6 @@ import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.post.domain.repository.PostRepository;
 import com.practice.lkdcode.module.post.exception.PostErrorCode;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class PostApiControllerTest {
 
+    private static final String URL_PREFIX = "/api/posts";
+
     @Autowired
     protected MockMvc mockMvc;
 
@@ -49,6 +49,7 @@ class PostApiControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+
 
     @BeforeEach
     void setMockMvc() {
@@ -62,7 +63,6 @@ class PostApiControllerTest {
     @Test
     void 게시글_작성_성공_테스트() throws Exception {
         // given
-        final String url = "/posts";
         final String title = "Junit 제목";
         final String content = "Junit 내용";
         PostRequestDTO.Create request = PostRequestDTO.Create.builder()
@@ -73,7 +73,7 @@ class PostApiControllerTest {
         String requestBody = objectMapper.writeValueAsString(request);
 
         // when
-        mockMvc.perform(post(url)
+        mockMvc.perform(post(URL_PREFIX)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(requestBody)
         ).andExpect(status().isOk());
@@ -90,8 +90,7 @@ class PostApiControllerTest {
     @Test
     void 게시글_작성_실패_테스트() throws Exception {
         // given
-        final String url = "/posts";
-        final String errorTitle = "";
+        final String errorTitle = "     ";
         final String content = "Junit 내용";
         PostRequestDTO.Create request = PostRequestDTO.Create.builder()
                 .title(errorTitle)
@@ -102,7 +101,7 @@ class PostApiControllerTest {
 
         // when
         // then
-        MvcResult mvcResult = mockMvc.perform(post(url)
+        MvcResult mvcResult = mockMvc.perform(post(URL_PREFIX)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(requestBody)
                 ).andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
@@ -115,11 +114,10 @@ class PostApiControllerTest {
     @Test
     void 게시글_전체_조회_성공_테스트() throws Exception {
         // given
-        final String url = "/posts";
         setPostBulkData();
 
         // when
-        MvcResult mvcResult = mockMvc.perform(get(url)
+        MvcResult mvcResult = mockMvc.perform(get(URL_PREFIX)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                 ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.data[*].id", "10").exists())
@@ -143,7 +141,7 @@ class PostApiControllerTest {
     void 게시글_ID_조회_성공_테스트() throws Exception {
         // given
         final String id = "3";
-        final String url = "/posts/" + id;
+        final String url = URL_PREFIX + id;
         setPostBulkData();
 
         // when
@@ -168,7 +166,7 @@ class PostApiControllerTest {
     void 게시글_ID_조회_실패_테스트() throws Exception {
         // given
         final String id = "3000";
-        final String url = "/posts/" + id;
+        final String url = URL_PREFIX + id;
         setPostBulkData();
 
         // when
@@ -190,7 +188,7 @@ class PostApiControllerTest {
         final String updateContent = "수정한 내용";
 
         final String id = "3";
-        final String url = "/posts/" + id;
+        final String url = URL_PREFIX + id;
 
         setPostBulkData();
 
@@ -228,7 +226,7 @@ class PostApiControllerTest {
         final String updateContent = "수정한 내용";
 
         final String id = "3";
-        final String url = "/posts/" + id;
+        final String url = URL_PREFIX + id;
 
         setPostBulkData();
 
