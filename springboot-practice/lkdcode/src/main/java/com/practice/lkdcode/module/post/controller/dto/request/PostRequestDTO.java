@@ -1,8 +1,9 @@
 package com.practice.lkdcode.module.post.controller.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Builder;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import static com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO.Create;
 import static com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO.Update;
@@ -30,5 +31,4 @@ public sealed interface PostRequestDTO permits Create, Update {
             String content
     ) implements PostRequestDTO {
     }
-
 }
