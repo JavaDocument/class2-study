@@ -1,5 +1,6 @@
 package com.practice.lkdcode.module.post.service;
 
+import com.practice.lkdcode.global.config.security.CustomUserDetails;
 import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.domain.Post;
@@ -35,7 +36,7 @@ public class PostService {
         return PostMapper.toResponseGetAllFromPostList(page);
     }
 
-    public PostResponseDTO.Create loadSave(final PostRequestDTO.Create request) {
+    public PostResponseDTO.Create loadSave(final PostRequestDTO.Create request, CustomUserDetails customUserDetails) {
         for (int i = 0; i < 100; i++) {
             Post post = PostMapper.toPostFromRequestCreate(request);
             postRepository.save(post);
@@ -46,14 +47,14 @@ public class PostService {
         return PostMapper.toResponseCreateFromPost(saved);
     }
 
-    public PostResponseDTO.Update loadUpdate(final Long id, final PostRequestDTO.Update request) {
+    public PostResponseDTO.Update loadUpdate(final Long id, final PostRequestDTO.Update request, CustomUserDetails customUserDetails) {
         Post post = getPost(id);
         post.update(request.title(), request.content());
         postRepository.save(post);
         return PostMapper.toResponseUpdateFromPost(post);
     }
 
-    public PostResponseDTO.Delete loadDelete(final Long id) {
+    public PostResponseDTO.Delete loadDelete(final Long id, CustomUserDetails customUserDetails) {
         Post post = getPost(id);
 
         postRepository.deleteById(id);
