@@ -21,8 +21,6 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    // TODO : ExceptionHandler 사용해서 예외처리 따로해주기
-
     @PostMapping
     public ResponseEntity<BoardDTO.CreateResponse> createBoard(@RequestBody @Valid BoardDTO.CreateRequest requestDto) {
         return ResponseEntity.ok(boardService.createBoard(requestDto));
@@ -36,20 +34,12 @@ public class BoardController {
     // PathVariable에 바로 NotBlank를 사용할 수 없음...
     @GetMapping("/title/{keyword}")
     public ResponseEntity<?> getBoardListByTitleKeyword(@PathVariable String keyword) {
-        try {
-            return ResponseEntity.ok(boardService.getBoardListByTitleKeyword(SearchDTO.BoardSearchDTO.of(keyword)));
-        } catch (ValidateException e) {
-            return ResponseEntity.ok(e.getMessage());
-        }
+        return ResponseEntity.ok(boardService.getBoardListByTitleKeyword(keyword));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getBoardDetail(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(boardService.getBoardDetail(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.ok("존재하지 않는 게시글입니다.");
-        }
+        return ResponseEntity.ok(boardService.getBoardDetail(id));
     }
 
     @PutMapping
@@ -60,12 +50,8 @@ public class BoardController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long id) {
-        try {
-            boardService.deleteBoard(id);
-            return ResponseEntity.ok("삭제되었습니다.");
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.ok("존재하지 않는 게시글입니다.");
-        }
+        boardService.deleteBoard(id);
+        return ResponseEntity.ok("삭제되었습니다.");
     }
 
 }

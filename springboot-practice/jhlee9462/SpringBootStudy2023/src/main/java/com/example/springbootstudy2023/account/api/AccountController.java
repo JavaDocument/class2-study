@@ -5,10 +5,7 @@ import com.example.springbootstudy2023.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,8 +23,13 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AccountDTO.LoginRequest requestDto) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<AccountDTO.LoginResponse> login(@RequestBody AccountDTO.LoginRequest requestDto) {
+        return ResponseEntity.ok(accountService.login(requestDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAccountDetail(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(accountService.getAccountDetail(token)); // 임시로 넣은 값. 추후 삭제 예정.
     }
 
 }

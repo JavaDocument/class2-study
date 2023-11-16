@@ -37,7 +37,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDTO.ListResponse> getBoardListByTitleKeyword(SearchDTO.BoardSearchDTO searchDTO) throws ValidateException {
+    public List<BoardDTO.ListResponse> getBoardListByTitleKeyword(String keyword) {
+        SearchDTO.BoardSearchDTO searchDTO = SearchDTO.BoardSearchDTO.of(keyword);
         searchValidator.validate(searchDTO);
         return boardRepository.findBoardsByTitleContaining(PageRequest.of(0,
                                 100,

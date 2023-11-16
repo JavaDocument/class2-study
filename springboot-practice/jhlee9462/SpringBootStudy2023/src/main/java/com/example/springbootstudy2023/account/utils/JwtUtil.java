@@ -1,9 +1,14 @@
 package com.example.springbootstudy2023.account.utils;
 
 import com.example.springbootstudy2023.account.entity.Account;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.HashMap;
+import javax.crypto.SecretKey;
+import java.security.Key;
+import java.util.Date;
 
 public class JwtUtil {
 
@@ -13,14 +18,27 @@ public class JwtUtil {
     private static long EXPIRE_TIME;
 
     public static String generateToken(Account account) {
-        HashMap<String, Object> claims = new HashMap<>();
-        return createToken(claims, account.getId());
+        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+
+        return Jwts.builder()
+                .subject(String.valueOf(account.getId()))
+                .expiration(new Date(System.currentTimeMillis() + EXPIRE_TIME))
+                .signWith(key)
+                .compact();
     }
 
-    // TODO: jjwt 라이브러리 사용 방법 알아서 토큰 생성
+    public static Claims extractClaims(String token) {
+        SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-    private static String createToken(HashMap<String, Object> claims, Long id) {
-        return null;
+        Claims payload = Jwts.parser()
+                .decryptWith(key)
+                .build().parseSignedClaims(token).getPayload();
+
+        if (payload == null) {
+            throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
+        }
+
+        return payload;
     }
 
 }

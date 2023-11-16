@@ -1,8 +1,10 @@
 package com.example.springbootstudy2023.account.dto;
 
 import com.example.springbootstudy2023.account.entity.Account;
+import com.example.springbootstudy2023.account.utils.JwtUtil;
 
 import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 
 public interface AccountDTO {
 
@@ -33,8 +35,18 @@ public interface AccountDTO {
     record LoginResponse(
             String accessToken
     ) implements AccountDTO {
-        public static LoginResponse of(String accessToken) {
-            return new LoginResponse(accessToken);
+        public static LoginResponse of(Account account) {
+            return new LoginResponse(JwtUtil.generateToken(account));
+        }
+    }
+
+    record DetailResponse(
+            Long id,
+            String email,
+            LocalDateTime createTime
+    ) implements AccountDTO {
+        public static DetailResponse of(Account account) {
+            return new DetailResponse(account.getId(), account.getEmail(), account.getCreateTime());
         }
     }
 

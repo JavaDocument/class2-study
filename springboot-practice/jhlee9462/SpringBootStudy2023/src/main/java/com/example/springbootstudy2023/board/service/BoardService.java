@@ -11,7 +11,7 @@ public interface BoardService {
 
     List<BoardDTO.ListResponse> getBoardList();
 
-    List<BoardDTO.ListResponse> getBoardListByTitleKeyword(SearchDTO.BoardSearchDTO searchDTO);
+    List<BoardDTO.ListResponse> getBoardListByTitleKeyword(String keyword);
 
     BoardDTO.DetailResponse getBoardDetail(Long id);
 

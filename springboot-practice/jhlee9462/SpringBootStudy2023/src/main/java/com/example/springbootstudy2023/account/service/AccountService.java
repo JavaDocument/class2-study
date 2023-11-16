@@ -6,4 +6,7 @@ public interface AccountService {
 
     AccountDTO.CreateResponse signUp(AccountDTO.CreateRequest dto);
 
+    AccountDTO.LoginResponse login(AccountDTO.LoginRequest requestDto);
+
+    AccountDTO.DetailResponse getAccountDetail(String token);
 }
