@@ -26,3 +26,8 @@ spring:
 # Logging Configuration
 logging.level:
   org.hibernate.SQL: debug
+
+# Jwt Configuration
+jwt:
+  secret: jhlee9462
+  expire: 3600

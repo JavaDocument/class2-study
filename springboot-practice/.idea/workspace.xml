@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="693cd061-1464-4482-9005-856529fd40e4" name="변경" comment="회원가입 기능 추가,&#10;로그인 기능 생성중">
+      <change afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/global/handler/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/api/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/api/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/dto/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/dto/AccountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/service/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/service/AccountServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/account/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/board/api/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/board/api/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/board/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/board/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023/src/main/java/com/example/springbootstudy2023/board/service/BoardServiceImpl.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/jefeel">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/jhlee9462/SpringBootStudy2023">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/joy0987">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/lkdcode">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2YDKtNHnh1eTp1jpLhR2oNpgiUf" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "jhlee/feature/account",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/kiwyb/IdeaProjects/class2-study/springboot-practice",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "모듈",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="SpringBootStudy2023Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="SpringBootStudy2023.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.springbootstudy2023.SpringBootStudy2023Application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.springbootstudy2023.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.SpringBootStudy2023Application" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="693cd061-1464-4482-9005-856529fd40e4" name="변경" comment="" />
+      <created>1700054923273</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1700054923273</updated>
+      <workItem from="1700054924292" duration="5096000" />
+      <workItem from="1700129489375" duration="2594000" />
+    </task>
+    <task id="LOCAL-00001" summary="회원가입 기능 추가,&#10;로그인 기능 생성중">
+      <option name="closed" value="true" />
+      <created>1700059983590</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700059983590</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="회원가입 기능 추가,&#10;로그인 기능 생성중" />
+    <option name="LAST_COMMIT_MESSAGE" value="회원가입 기능 추가,&#10;로그인 기능 생성중" />
+  </component>
+</project>
