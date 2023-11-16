@@ -5,9 +5,11 @@ import lombok.Builder;
 
 import javax.validation.constraints.*;
 
+import java.time.LocalDateTime;
+
 import static com.practice.lkdcode.module.user.controller.dto.UserDTO.*;
 
-public sealed interface UserDTO permits UserSignupRequestDTO, UserSignupResponseDTO, UserSignInRequestDTO, UserSignInResponseDTO {
+public sealed interface UserDTO permits UserSignupRequestDTO, UserSignupResponseDTO, UserSignInRequestDTO, UserSignInResponseDTO, UserInformation {
     @Builder
     record UserSignupRequestDTO(
             @NotBlank(message = "이메일을 입력해주세요.")
@@ -41,6 +43,14 @@ public sealed interface UserDTO permits UserSignupRequestDTO, UserSignupResponse
     record UserSignInResponseDTO(
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             String token
+    ) implements UserDTO {
+    }
+
+    @Builder
+    record UserInformation(
+            Long id,
+            String email,
+            LocalDateTime createdAt
     ) implements UserDTO {
     }
 }
