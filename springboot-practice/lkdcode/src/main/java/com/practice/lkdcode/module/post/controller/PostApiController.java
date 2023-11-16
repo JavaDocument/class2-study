@@ -1,20 +1,22 @@
 package com.practice.lkdcode.module.post.controller;
 
+import com.practice.lkdcode.global.config.security.CustomUserDetails;
 import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.controller.response.PostResponse;
 import com.practice.lkdcode.module.post.service.PostService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("posts")
+@RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class PostApiController {
     private final PostService postService;
@@ -46,27 +48,29 @@ public class PostApiController {
 
     @PostMapping
     public PostResponse<PostResponseDTO.Create> createPost(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
             @RequestBody @Valid final PostRequestDTO.Create request
     ) {
-        PostResponseDTO.Create response = postService.loadSave(request);
+        PostResponseDTO.Create response = postService.loadSave(request, customUserDetails);
         return PostResponse.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public PostResponse<PostResponseDTO.Delete> deletePost(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
             @PathVariable(name = "id") final Long id
     ) {
-        PostResponseDTO.Delete response = postService.loadDelete(id);
+        PostResponseDTO.Delete response = postService.loadDelete(id, customUserDetails);
         return PostResponse.ok(response);
     }
 
     @PatchMapping("/{id}")
     public PostResponse<PostResponseDTO.Update> updatePost(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
             @PathVariable(name = "id") final Long id,
             @RequestBody @Valid final PostRequestDTO.Update request
     ) {
-        PostResponseDTO.Update response = postService.loadUpdate(id, request);
+        PostResponseDTO.Update response = postService.loadUpdate(id, request, customUserDetails);
         return PostResponse.ok(response);
     }
-
 }
