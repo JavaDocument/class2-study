@@ -1,4 +1,4 @@
-package com.practice.lkdcode.module.post.service;
+package com.practice.lkdcode.module.post.service.command;
 
 import com.practice.lkdcode.global.config.security.CustomUserDetails;
 import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
