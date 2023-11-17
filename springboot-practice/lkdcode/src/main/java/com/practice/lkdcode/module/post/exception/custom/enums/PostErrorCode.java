@@ -1,6 +1,6 @@
-package com.practice.lkdcode.module.post.exception;
+package com.practice.lkdcode.module.post.exception.custom.enums;
 
-import com.practice.lkdcode.global.exception.AppErrorCode;
+import com.practice.lkdcode.global.exception.custom.AppErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
