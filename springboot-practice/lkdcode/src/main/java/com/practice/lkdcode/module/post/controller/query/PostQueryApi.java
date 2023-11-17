@@ -2,7 +2,7 @@ package com.practice.lkdcode.module.post.controller.query;
 
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.controller.response.PostResponse;
-import com.practice.lkdcode.module.post.service.PostQueryUsecase;
+import com.practice.lkdcode.module.post.service.query.PostQueryUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -37,7 +37,7 @@ public class PostQueryApi {
     }
 
     @GetMapping("/search/{keyword}")
-    public PostResponse<List<PostResponseDTO.Get>> retrievePostsByKeyword(
+    public PostResponse<List<PostResponseDTO.Get>> getPostsByKeyword(
             @PathVariable(name = "keyword") String keyword,
             @PageableDefault(size = 3, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
