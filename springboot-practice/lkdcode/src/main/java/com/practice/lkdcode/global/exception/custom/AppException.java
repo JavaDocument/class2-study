@@ -1,4 +1,4 @@
-package com.practice.lkdcode.global.exception;
+package com.practice.lkdcode.global.exception.custom;
 
 import lombok.Getter;
 
