@@ -1,4 +1,4 @@
-package com.practice.lkdcode.module.user.controller;
+package com.practice.lkdcode.module.user.controller.command;
 
 import com.practice.lkdcode.module.user.controller.dto.UserDTO;
 import com.practice.lkdcode.module.user.service.UserRegisterUsecase;
@@ -13,7 +13,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class UserApiController {
+public class UserCommandApi {
     private final UserRegisterUsecase userRegisterUsecase;
 
     @PostMapping("/sign-up")

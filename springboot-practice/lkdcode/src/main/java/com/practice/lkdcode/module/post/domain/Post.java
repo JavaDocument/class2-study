@@ -1,6 +1,7 @@
 package com.practice.lkdcode.module.post.domain;
 
 import com.practice.lkdcode.global.common.BaseEntity;
+import com.practice.lkdcode.module.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,10 +19,15 @@ public class Post extends BaseEntity {
     @Column(columnDefinition = "TEXT", name = "content", nullable = false, length = 1_000)
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Builder
-    public Post(String title, String content) {
+    public Post(String title, String content, User user) {
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 
     public void update(String title, String content) {

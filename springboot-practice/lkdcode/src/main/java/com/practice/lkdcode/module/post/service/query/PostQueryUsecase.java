@@ -1,4 +1,4 @@
-package com.practice.lkdcode.module.post.service;
+package com.practice.lkdcode.module.post.service.query;
 
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import org.springframework.data.domain.Pageable;

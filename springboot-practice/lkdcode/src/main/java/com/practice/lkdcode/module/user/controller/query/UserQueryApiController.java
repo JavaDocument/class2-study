@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserQueryApiController {
     private final UserQueryUsecase userQueryUsecase;
 
-
-    @GetMapping
-    public UserDTO.UserInformation getUserInformation(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    @GetMapping("/information")
+    public UserDTO.UserInformationDTO getUserInformation(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails
+    ) {
         return userQueryUsecase.retrieveUserInformation(customUserDetails.getId());
     }
 }
