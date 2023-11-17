@@ -1,28 +1,29 @@
 package com.practice.lkdcode.module.user.exception.handler;
 
+import com.practice.lkdcode.module.user.exception.custom.UserEmailDuplicationException;
+import com.practice.lkdcode.module.user.exception.custom.UserLoginFailException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @Slf4j
 public class UserExceptionHandler {
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<?> catchIllegalArgumentException(IllegalArgumentException e) {
+
+    @ExceptionHandler(UserLoginFailException.class)
+    public ResponseEntity<?> catchUserLoginFailException(UserLoginFailException e) {
         log.error(e.getMessage());
-        return ResponseEntity.status(400).body(e.getMessage());
+
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus())
+                .body(e.getMessage());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> catchMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        String message = e.getBindingResult()
-                .getAllErrors()
-                .get(0)
-                .getDefaultMessage();
-        log.error(message);
+    @ExceptionHandler(UserEmailDuplicationException.class)
+    public ResponseEntity<?> catchUserEmailDuplicationException(UserEmailDuplicationException e) {
+        log.error(e.getMessage());
 
-        return ResponseEntity.status(400).body(message);
+        return ResponseEntity.status(e.getErrorCode().getHttpStatus())
+                .body(e.getMessage());
     }
 }
