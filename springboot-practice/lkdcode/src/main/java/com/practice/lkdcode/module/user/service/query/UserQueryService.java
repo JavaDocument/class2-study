@@ -13,11 +13,11 @@ public class UserQueryService implements UserQueryUsecase {
     private final UserRepository userRepository;
 
     @Override
-    public UserDTO.UserInformation retrieveUserInformation(Long id) {
+    public UserDTO.UserInformationDTO retrieveUserInformation(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다 : " + id));
 
-        return UserDTO.UserInformation.builder()
+        return UserDTO.UserInformationDTO.builder()
                 .id(id)
                 .email(user.getEmail())
                 .createdAt(user.getCreatedAt())
