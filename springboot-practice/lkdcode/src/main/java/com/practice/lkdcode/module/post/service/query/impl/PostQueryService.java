@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PostQueryService implements PostQueryUsecase {
-    private static final PostMapper.FromRequest FROM_REQUEST = PostMapper.FromRequest.INSTANCE;
     private static final PostMapper.ToResponse TO_RESPONSE = PostMapper.ToResponse.INSTANCE;
     private final PostRepository postRepository;
 
@@ -30,16 +29,15 @@ public class PostQueryService implements PostQueryUsecase {
     @Override
     public List<PostResponseDTO.Get> retrieveFindAll(Pageable pageable) {
         Page<Post> page = postRepository.findAll(pageable);
-        //TODO : List<Post> mapper
-//        return PostMapper.toResponseGetAllFromPostList(page);
-        return null;
+        List<Post> list = page.getContent();
+        return TO_RESPONSE.postToPostListDTO(list);
     }
 
     @Override
     public List<PostResponseDTO.Get> retrieveFindByTitleContaining(String keyword, Pageable pageable) {
         Page<Post> page = postRepository.findByTitleContaining(keyword, pageable);
-//        return PostMapper.toResponseGetAllFromPostList(page);
-        return null;
+        List<Post> list = page.getContent();
+        return TO_RESPONSE.postToPostListDTO(list);
     }
 
     private Post getPost(Long id) {
