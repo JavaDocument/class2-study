@@ -6,11 +6,15 @@ import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.post.domain.repository.PostRepository;
 import com.practice.lkdcode.module.post.exception.custom.PostNotFoundByIdException;
+import com.practice.lkdcode.module.post.exception.custom.UnauthorizedPostDeleteException;
+import com.practice.lkdcode.module.post.exception.custom.UnauthorizedPostUpdateException;
 import com.practice.lkdcode.module.post.exception.custom.enums.PostErrorCode;
 import com.practice.lkdcode.module.post.mapper.PostMapper;
 import com.practice.lkdcode.module.post.service.command.PostCommandUsecase;
 import com.practice.lkdcode.module.user.domain.User;
 import com.practice.lkdcode.module.user.domain.repository.UserRepository;
+import com.practice.lkdcode.module.user.exception.custom.UserNotFoundByIdException;
+import com.practice.lkdcode.module.user.exception.custom.enums.UserErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +32,7 @@ public class PostCommandService implements PostCommandUsecase {
     public PostResponseDTO.Create executeSave(PostRequestDTO.Create request, CustomUserDetails customUserDetails) {
         Long userId = customUserDetails.getId();
 
-        // TODO : refactoring
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("?????"));
+        User user = loadUserFrom(userId);
 
         Post post = FROM_REQUEST.createDTOToPost(request, user);
         Post saved = postRepository.save(post);
@@ -40,9 +42,12 @@ public class PostCommandService implements PostCommandUsecase {
 
     @Override
     public PostResponseDTO.Update executeUpdate(Long id, PostRequestDTO.Update request, CustomUserDetails customUserDetails) {
-        Post post = getPost(id);
+        Post post = loadPostFrom(id);
 
-        validateUserId(customUserDetails, post);
+        boolean isPostOwner = isPostOwner(customUserDetails, post);
+        if (!isPostOwner) {
+            throw new UnauthorizedPostUpdateException(PostErrorCode.UNAUTHORIZED_POST_UPDATE_ERROR);
+        }
 
         post.update(request.title(), request.content());
         postRepository.save(post);
@@ -51,22 +56,31 @@ public class PostCommandService implements PostCommandUsecase {
 
     @Override
     public PostResponseDTO.Delete executeDelete(Long id, CustomUserDetails customUserDetails) {
-        Post post = getPost(id);
+        Post post = loadPostFrom(id);
 
-        validateUserId(customUserDetails, post);
+        boolean isPostOwner = isPostOwner(customUserDetails, post);
+        if (!isPostOwner) {
+            throw new UnauthorizedPostDeleteException(PostErrorCode.UNAUTHORIZED_POST_DELETE_ERROR);
+        }
 
         postRepository.deleteById(id);
         return TO_RESPONSE.postToPostDeleteDTO(post);
     }
 
-    private static void validateUserId(CustomUserDetails customUserDetails, Post post) {
-        if (!Objects.equals(post.getUser().getId(), customUserDetails.getId())) {
-            throw new IllegalArgumentException("본인 글만 업데이트 할 수 있습니다.");
-            // TODO : Refactoring
-        }
+    private static boolean isPostOwner(CustomUserDetails customUserDetails, Post post) {
+        Long postId = post.getUser().getId();
+        Long jwtId = customUserDetails.getId();
+
+        return Objects.equals(postId, jwtId);
     }
 
-    private Post getPost(Long id) {
+    private User loadUserFrom(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new UserNotFoundByIdException(UserErrorCode.NOT_FOUND_USER_BY_ID_ERROR));
+    }
+
+    private Post loadPostFrom(Long id) {
         return postRepository.findById(id)
                 .orElseThrow(() ->
                         new PostNotFoundByIdException(PostErrorCode.NOT_FOUND_POST_BY_ID_ERROR, id));
