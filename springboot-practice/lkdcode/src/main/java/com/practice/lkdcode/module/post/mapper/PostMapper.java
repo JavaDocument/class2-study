@@ -7,6 +7,8 @@ import com.practice.lkdcode.module.user.domain.User;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 public interface PostMapper {
     @Mapper
     interface FromRequest extends PostMapper {
@@ -44,5 +46,7 @@ public interface PostMapper {
         @Mapping(source = "id", target = "id")
         @Mapping(source = "user.id", target = "userId")
         PostResponseDTO.Delete postToPostDeleteDTO(Post post);
+
+        List<PostResponseDTO.Get> postToPostListDTO(List<Post> posts);
     }
 }
