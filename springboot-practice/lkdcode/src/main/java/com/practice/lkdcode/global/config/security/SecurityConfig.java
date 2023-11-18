@@ -1,7 +1,7 @@
 package com.practice.lkdcode.global.config.security;
 
-import com.practice.lkdcode.global.config.jwt.filter.TokenAuthenticationFilter;
 import com.practice.lkdcode.global.config.jwt.JWTProvider;
+import com.practice.lkdcode.global.config.jwt.filter.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,17 +25,17 @@ public class SecurityConfig {
     //    private final AuthenticationConfiguration authenticationConfiguration;
     public static final String[] PUBLIC = new String[]
             {
-                    "/h2-console/**"
+                    "/h2-console/**",
             };
     public static final String[] GET_PUBLIC = new String[]
             {
-                    "api/posts/**",
+                    "/api/posts/**",
             };
 
     public static final String[] POST_PUBLIC = new String[]
             {
                     "/api/users/sign-up",
-                    "/api/users/sign-in"
+                    "/api/users/sign-in",
             };
 
     @Bean
