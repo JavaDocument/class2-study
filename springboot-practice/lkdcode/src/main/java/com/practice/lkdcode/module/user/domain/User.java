@@ -2,6 +2,7 @@ package com.practice.lkdcode.module.user.domain;
 
 import com.practice.lkdcode.global.common.BaseEntity;
 import com.practice.lkdcode.module.post.domain.Post;
+import com.practice.lkdcode.module.reply.domain.Reply;
 import com.practice.lkdcode.module.user.domain.status.UserStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -26,6 +27,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Reply> replies = new ArrayList<>();
 
     @Builder
     public User(String email, String password, UserStatus userStatus) {
