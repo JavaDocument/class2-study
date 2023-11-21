@@ -1,5 +1,7 @@
 package com.practice.lkdcode.module.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.practice.lkdcode.global.common.BaseEntity;
 import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.reply.domain.Reply;
@@ -20,8 +22,11 @@ import java.util.List;
 public class User extends BaseEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
+
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
