@@ -19,8 +19,19 @@ public class GlobalExceptionHandler {
                 .get(0)
                 .getDefaultMessage();
 
-        log.error(defaultMessage);
+        log.error("valid Exception : {}", defaultMessage);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
                 .body(defaultMessage);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> catchRuntimeException(RuntimeException e) {
+        String message = e.getMessage();
+        log.error("runtimeException message : {}", message);
+        log.error("runtimeException fillInStackTrace : {}", e.fillInStackTrace().toString());
+        log.error("runtimeException : {}", e.toString());
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .body("알 수 없는 예외 상황 : " + message);
     }
 }
