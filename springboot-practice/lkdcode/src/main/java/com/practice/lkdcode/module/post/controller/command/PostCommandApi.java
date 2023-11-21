@@ -21,7 +21,7 @@ public class PostCommandApi {
     @PostMapping
     public PostResponse<PostResponseDTO.Create> getCreatePost(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @RequestBody @Valid final PostRequestDTO.Create request
+            @Valid @RequestBody final PostRequestDTO.Create request
     ) {
         PostResponseDTO.Create response = postCommandUsecase.executeSave(request, customUserDetails);
         return PostResponse.ok(response);
@@ -40,7 +40,7 @@ public class PostCommandApi {
     public PostResponse<PostResponseDTO.Update> getUpdatePost(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
             @PathVariable(name = "id") final Long id,
-            @RequestBody @Valid final PostRequestDTO.Update request
+            @Valid @RequestBody final PostRequestDTO.Update request
     ) {
         PostResponseDTO.Update response = postCommandUsecase.executeUpdate(id, request, customUserDetails);
         return PostResponse.ok(response);
