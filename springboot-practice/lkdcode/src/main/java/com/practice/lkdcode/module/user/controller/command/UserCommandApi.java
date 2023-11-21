@@ -1,6 +1,7 @@
 package com.practice.lkdcode.module.user.controller.command;
 
-import com.practice.lkdcode.module.user.controller.dto.UserDTO;
+import com.practice.lkdcode.module.user.controller.dto.request.UserRequestDTO;
+import com.practice.lkdcode.module.user.controller.dto.response.UserResponseDTO;
 import com.practice.lkdcode.module.user.service.UserRegisterUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +18,12 @@ public class UserCommandApi {
     private final UserRegisterUsecase userRegisterUsecase;
 
     @PostMapping("/sign-up")
-    public UserDTO.UserSignupResponseDTO getSignup(@Valid @RequestBody UserDTO.UserSignupRequestDTO userSignupRequestDTO) {
+    public UserResponseDTO.UserSignupResponseDTO getSignup(@Valid @RequestBody final UserRequestDTO.UserSignupRequestDTO userSignupRequestDTO) {
         return userRegisterUsecase.executeUserSignup(userSignupRequestDTO);
     }
 
     @PostMapping("/sign-in")
-    public UserDTO.UserSignInResponseDTO getSignin(@Valid @RequestBody UserDTO.UserSignInRequestDTO userSignInRequestDTO) {
+    public UserResponseDTO.UserSignInJwtResponseDTO getSignin(@Valid @RequestBody UserRequestDTO.UserSignInRequestDTO userSignInRequestDTO) {
         return userRegisterUsecase.executeUserSignin(userSignInRequestDTO);
     }
 }
