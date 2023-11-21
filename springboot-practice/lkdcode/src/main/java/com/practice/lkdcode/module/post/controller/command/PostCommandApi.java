@@ -7,13 +7,17 @@ import com.practice.lkdcode.module.post.controller.response.PostResponse;
 import com.practice.lkdcode.module.post.service.command.PostCommandUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
+@Validated
 public class PostCommandApi {
 
     private final PostCommandUsecase postCommandUsecase;
@@ -30,7 +34,7 @@ public class PostCommandApi {
     @DeleteMapping("/{id}")
     public PostResponse<PostResponseDTO.Delete> getDeletePost(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @PathVariable(name = "id") final Long id
+            @PathVariable(name = "id") @Min(1) @NotBlank final Long id
     ) {
         PostResponseDTO.Delete response = postCommandUsecase.executeDelete(id, customUserDetails);
         return PostResponse.ok(response);
@@ -39,7 +43,7 @@ public class PostCommandApi {
     @PatchMapping("/{id}")
     public PostResponse<PostResponseDTO.Update> getUpdatePost(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @PathVariable(name = "id") final Long id,
+            @PathVariable(name = "id") @Min(1) @NotBlank final Long id, // @Min, @NotBlank
             @Valid @RequestBody final PostRequestDTO.Update request
     ) {
         PostResponseDTO.Update response = postCommandUsecase.executeUpdate(id, request, customUserDetails);
