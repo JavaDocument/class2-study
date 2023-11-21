@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
 import static com.practice.lkdcode.module.reply.controller.dto.response.ReplyResponseDTO.*;
 
-public sealed interface ReplyResponseDTO permits CreateResponseDTO, GetResponseDTO, DeleteResponseDTO, UpdateResponseDTO {
+public sealed interface ReplyResponseDTO permits Create, Get, Delete, Update {
     @Builder
-    record GetResponseDTO(
+    record Get(
             String content,
             @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
             LocalDateTime createdAt,
@@ -20,7 +20,7 @@ public sealed interface ReplyResponseDTO permits CreateResponseDTO, GetResponseD
     }
 
     @Builder
-    record CreateResponseDTO(
+    record Create(
             String content,
             @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
             LocalDateTime createdAt,
@@ -30,14 +30,14 @@ public sealed interface ReplyResponseDTO permits CreateResponseDTO, GetResponseD
     }
 
     @Builder
-    record DeleteResponseDTO(
+    record Delete(
             // TODO : ...
     ) implements ReplyResponseDTO {
 
     }
 
     @Builder
-    record UpdateResponseDTO(
+    record Update(
             // TODO : ...
     ) implements ReplyResponseDTO {
     }
