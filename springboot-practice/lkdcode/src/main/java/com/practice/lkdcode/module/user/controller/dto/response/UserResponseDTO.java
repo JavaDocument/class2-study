@@ -10,8 +10,7 @@ import static com.practice.lkdcode.module.user.controller.dto.response.UserRespo
 public sealed interface UserResponseDTO permits UserInformationResponseDTO, UserSignInJwtResponseDTO, UserSignupResponseDTO {
     @Builder
     record UserSignupResponseDTO(
-            String email,
-            boolean success
+            String email
     ) implements UserResponseDTO {
     }
 
