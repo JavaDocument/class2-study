@@ -6,6 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    //    Page<Post> findTop100ByOrderByCreatedAtDesc(Pageable pageable);
     Page<Post> findByTitleContaining(String page, Pageable pageable);
 }
