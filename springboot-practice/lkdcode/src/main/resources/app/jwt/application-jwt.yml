@@ -1,0 +1,5 @@
+app:
+  jwt:
+    issuer: test@naver.com
+    secret_key: secret_key
+    expired: 1_800_000
