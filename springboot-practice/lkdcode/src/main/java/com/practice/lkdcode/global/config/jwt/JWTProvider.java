@@ -24,7 +24,7 @@ public class JWTProvider {
         Date now = new Date();
 
         Date expiration = new Date();
-        expiration.setTime(expiration.getTime() + 1_800_000);
+        expiration.setTime(expiration.getTime() + jwtProperties.getExpired());
 
         return Jwts.builder()
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // 헤더 type : JWT
@@ -34,15 +34,16 @@ public class JWTProvider {
                 .setSubject(user.getEmail()) // 내용 sub : 유저의 이메일
                 .claim(ID, user.getId()) // 클레임 id : 유저 ID
                 // 서명 : 비밀값과 함께 해시값을 HS256 방식으로 암호화
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
+                .signWith(jwtProperties.getSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     // 토큰 유효성 검사
     public boolean validateToken(String token) {
         try {
-            Jwts.parser()
+            Jwts.parserBuilder()
                     .setSigningKey(jwtProperties.getSecretKey())
+                    .build()
                     .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
@@ -51,7 +52,6 @@ public class JWTProvider {
     }
 
     // CustomUserDetails 취득
-
     public CustomUserDetails getCustomUserDetails(final String token) {
         Assert.hasText(token, "token parameter must not be empty or null");
 
@@ -75,8 +75,9 @@ public class JWTProvider {
     }
 
     private Claims getClaims(String token) {
-        return Jwts.parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(jwtProperties.getSecretKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
