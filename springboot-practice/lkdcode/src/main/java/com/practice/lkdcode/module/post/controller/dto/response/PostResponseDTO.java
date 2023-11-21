@@ -63,7 +63,7 @@ public sealed interface PostResponseDTO permits Create, Update, Delete, Get {
             @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
             LocalDateTime updatedAt,
             String userEmail,
-            List<ReplyResponseDTO.GetResponseDTO> replies
+            List<ReplyResponseDTO.Get> replies
     ) implements PostResponseDTO {
     }
 
