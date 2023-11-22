@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -34,7 +33,7 @@ public class PostCommandApi {
     @DeleteMapping("/{id}")
     public PostResponse<PostResponseDTO.Delete> getDeletePost(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @PathVariable(name = "id") @Min(1) @NotBlank final Long id
+            @PathVariable(name = "id") @Min(1) /*@NotBlank Long 에는 적용 불가*/ final Long id
     ) {
         PostResponseDTO.Delete response = postCommandUsecase.executeDelete(id, customUserDetails);
         return PostResponse.ok(response);
@@ -43,7 +42,7 @@ public class PostCommandApi {
     @PatchMapping("/{id}")
     public PostResponse<PostResponseDTO.Update> getUpdatePost(
             @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @PathVariable(name = "id") @Min(1) @NotBlank final Long id, // @Min, @NotBlank
+            @PathVariable(name = "id") @Min(1) /*@NotBlank Long 에는 적용 불가*/ final Long id, // @Min, @NotBlank
             @Valid @RequestBody final PostRequestDTO.Update request
     ) {
         PostResponseDTO.Update response = postCommandUsecase.executeUpdate(id, request, customUserDetails);
