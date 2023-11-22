@@ -5,9 +5,9 @@ import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 
 public interface PostCommandUsecase {
-    PostResponseDTO.Create executeSave(final PostRequestDTO.Create request, CustomUserDetails customUserDetails);
+    PostResponseDTO.Create executeSave(final PostRequestDTO.Create request, final CustomUserDetails customUserDetails);
 
-    PostResponseDTO.Update executeUpdate(final Long id, final PostRequestDTO.Update request, CustomUserDetails customUserDetails);
+    PostResponseDTO.Update executeUpdate(final Long id, final PostRequestDTO.Update request, final CustomUserDetails customUserDetails);
 
-    PostResponseDTO.Delete executeDelete(final Long id, CustomUserDetails customUserDetails);
+    PostResponseDTO.Delete executeDelete(final Long id, final CustomUserDetails customUserDetails);
 }
