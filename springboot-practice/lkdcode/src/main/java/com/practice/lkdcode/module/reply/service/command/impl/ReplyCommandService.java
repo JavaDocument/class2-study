@@ -9,7 +9,8 @@ import com.practice.lkdcode.module.reply.controller.dto.request.ReplyRequestDTO;
 import com.practice.lkdcode.module.reply.controller.dto.response.ReplyResponseDTO;
 import com.practice.lkdcode.module.reply.domain.Reply;
 import com.practice.lkdcode.module.reply.domain.repository.ReplyRepository;
-import com.practice.lkdcode.module.reply.mapper.ReplyMapper;
+import com.practice.lkdcode.module.reply.mapper.ReplyRequestMapper;
+import com.practice.lkdcode.module.reply.mapper.ReplyResponseMapper;
 import com.practice.lkdcode.module.reply.service.command.ReplyCommandUsecase;
 import com.practice.lkdcode.module.user.domain.User;
 import com.practice.lkdcode.module.user.domain.repository.UserRepository;
@@ -21,25 +22,23 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ReplyCommandService implements ReplyCommandUsecase {
-    private static final ReplyMapper.FromRequest FROM_REQUEST = ReplyMapper.FromRequest.INSTANCE;
-    private static final ReplyMapper.ToResponse TO_RESPONSE = ReplyMapper.ToResponse.INSTANCE;
     private final ReplyRepository replyRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
     @Override
-    public ReplyResponseDTO.CreateResponseDTO executeSave(Long postId, ReplyRequestDTO.CreateRequestDTO dto, CustomUserDetails customUserDetails) {
+    public ReplyResponseDTO.Create executeSave(Long postId, ReplyRequestDTO.Create dto, CustomUserDetails customUserDetails) {
         Post post = loadPostById(postId);
         User user = loadUserById(customUserDetails.getId());
-        Reply reply = FROM_REQUEST.createDTOToReply(dto, user, post);
+        Reply reply = ReplyRequestMapper.INSTANCE.createDTOToReply(dto, user, post);
 
         Reply saved = replyRepository.save(reply);
 
-        return TO_RESPONSE.replyToCreateDTO(saved, user, post);
+        return ReplyResponseMapper.INSTANCE.replyToCreateDTO(saved);
     }
 
     @Override
-    public ReplyResponseDTO.UpdateResponseDTO executeUpdate(Long postId, ReplyRequestDTO.UpdateRequestDTO dto, CustomUserDetails customUserDetails) {
+    public ReplyResponseDTO.Update executeUpdate(Long postId, ReplyRequestDTO.Update dto, CustomUserDetails customUserDetails) {
         return null;
     }
 
