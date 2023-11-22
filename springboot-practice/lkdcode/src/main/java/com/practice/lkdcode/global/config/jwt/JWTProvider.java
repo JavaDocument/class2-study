@@ -2,7 +2,10 @@ package com.practice.lkdcode.global.config.jwt;
 
 import com.practice.lkdcode.global.config.security.CustomUserDetails;
 import com.practice.lkdcode.module.user.domain.User;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.lang.Assert;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -69,7 +72,7 @@ public class JWTProvider {
     }
 
     // 토큰 기반으로 유저 아이디 취득
-    public Long getUserId(String token) {
+    private Long getUserId(String token) {
         Claims claims = getClaims(token);
         return claims.get(ID, Long.class);
     }
