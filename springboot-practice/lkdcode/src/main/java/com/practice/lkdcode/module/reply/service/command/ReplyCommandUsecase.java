@@ -6,9 +6,9 @@ import com.practice.lkdcode.module.reply.controller.dto.response.ReplyResponseDT
 
 public interface ReplyCommandUsecase {
 
-    ReplyResponseDTO.CreateResponseDTO executeSave(Long postId, ReplyRequestDTO.CreateRequestDTO dto, CustomUserDetails customUserDetails);
+    ReplyResponseDTO.Create executeSave(Long postId, ReplyRequestDTO.Create dto, CustomUserDetails customUserDetails);
 
-    ReplyResponseDTO.UpdateResponseDTO executeUpdate(Long postId,ReplyRequestDTO.UpdateRequestDTO dto, CustomUserDetails customUserDetails);
+    ReplyResponseDTO.Update executeUpdate(Long postId, ReplyRequestDTO.Update dto, CustomUserDetails customUserDetails);
 
 
 }
