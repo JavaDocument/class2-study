@@ -2,8 +2,8 @@ package com.practice.lkdcode.module.post.mapper;
 
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.domain.Post;
-import com.practice.lkdcode.module.user.domain.User;
-import com.practice.lkdcode.module.user.domain.status.UserStatus;
+import com.practice.lkdcode.module.reply.controller.dto.response.ReplyResponseDTO;
+import com.practice.lkdcode.support.base.BaseRepositoryList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,28 +11,14 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PostResponseMapperTest {
+class PostResponseMapperTest extends BaseRepositoryList {
     private static final PostResponseMapper MAPPER = PostResponseMapper.INSTANCE;
-    private static final String EMAIL = "test@email.com";
-    private static final String PASSWORD = "password123";
-    private static final String TITLE = "게시글 제목입니다.";
-    private static final String CONTENT = "게시글 내용입니다.";
+    private static final int FIRST_INDEX = 0;
     private Post post;
-    private User user;
 
     @BeforeEach
     void setEntity() {
-        this.user = User.builder()
-                .email(EMAIL)
-                .password(PASSWORD)
-                .userStatus(UserStatus.CREATED)
-                .build();
-
-        this.post = Post.builder()
-                .title(TITLE)
-                .content(CONTENT)
-                .user(user)
-                .build();
+        this.post = super.postRepository.findById(POST_ID).orElseThrow();
     }
 
     @Test
@@ -77,31 +63,45 @@ class PostResponseMapperTest {
         // then
         checkPostContent(getDTO.content());
         checkUserEmail(getDTO.userEmail());
+        checkReplyContent(getDTO.replies());
     }
 
     @Test
     void post_Entity_리스트를_get_DTO_리스트로_변환_성공_테스트() {
         // given
+        Post post1 = postRepository.findById(1L).orElseThrow();
+        Post post2 = postRepository.findById(2L).orElseThrow();
+        Post post3 = postRepository.findById(3L).orElseThrow();
+
         // when
-        List<PostResponseDTO.Get> getDTOList = MAPPER.postToPostListDTO(List.of(post));
+        List<PostResponseDTO.Get> getDTOList = MAPPER.postToPostListDTO(List.of(post1, post2, post3));
 
         // then
-        assertThat(getDTOList.size())
-                .isEqualTo(1);
-
-        checkPostContent(getDTOList.get(0).content());
-        checkUserEmail(getDTOList.get(0).userEmail());
+        checkPostContent(getDTOList.get(FIRST_INDEX).content());
+        checkUserEmail(getDTOList.get(FIRST_INDEX).userEmail());
+        checkReplyContent(getDTOList.get(FIRST_INDEX).replies());
     }
 
     private static void checkPostContent(String content) {
         assertThat(content)
                 .isNotNull()
-                .isEqualTo(CONTENT);
+                .isEqualTo(POST_CONTENT);
     }
 
     private static void checkUserEmail(String email) {
         assertThat(email)
                 .isNotNull()
-                .isEqualTo(EMAIL);
+                .isEqualTo(USER_EMAIL);
+    }
+
+    private static void checkReplyContent(List<ReplyResponseDTO.Get> replies) {
+        assertThat(replies.get(FIRST_INDEX).content())
+                .isEqualTo(REPLY_CONTENT);
+
+        assertThat(replies.get(FIRST_INDEX).userEmail())
+                .isEqualTo(USER_EMAIL);
+
+        assertThat(replies.get(FIRST_INDEX).postId())
+                .isEqualTo(POST_ID);
     }
 }
