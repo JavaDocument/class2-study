@@ -42,4 +42,11 @@ public class User extends BaseEntity {
         this.password = password;
         this.userStatus = userStatus == null ? UserStatus.CREATED : userStatus;
     }
+
+    @Builder
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.userStatus = UserStatus.CREATED;
+    }
 }
