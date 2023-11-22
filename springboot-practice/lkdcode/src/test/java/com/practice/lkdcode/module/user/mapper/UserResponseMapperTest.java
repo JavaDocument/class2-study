@@ -2,39 +2,33 @@ package com.practice.lkdcode.module.user.mapper;
 
 import com.practice.lkdcode.module.user.controller.dto.response.UserResponseDTO;
 import com.practice.lkdcode.module.user.domain.User;
-import com.practice.lkdcode.module.user.domain.status.UserStatus;
+import com.practice.lkdcode.support.base.BaseRepositoryList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class UserResponseMapperTest {
-    private static final String EMAIL = "test@test.com";
-    private static final String PASSWORD = "password";
+class UserResponseMapperTest extends BaseRepositoryList {
     private User user;
 
     @BeforeEach
     void setUser() {
-        this.user = User.builder()
-                .email(EMAIL)
-                .userStatus(UserStatus.CREATED)
-                .password(PASSWORD)
-                .build();
+        this.user = super.userRepository.findById(1L).orElseThrow();
     }
 
     @Test
-    void User를_DTO로_변환_성공_테스트() {
+    void User_를_sign_up_DTO_로_변환_성공_테스트() {
         // given
         // when
         UserResponseDTO.UserSignupResponseDTO userSignupResponseDTO = UserResponseMapper.INSTANCE.userToUserSignupResponseDTO(user);
 
         // then
         assertThat(userSignupResponseDTO.email())
-                .isEqualTo(EMAIL);
+                .isEqualTo(USER_EMAIL);
     }
 
     @Test
-    void JWT_를_DTO로_변환_성공_테스트() {
+    void JWT_를_DTO_로_변환_성공_테스트() {
         // given
         String jwt = "jwtTokenTest";
 
@@ -47,13 +41,13 @@ class UserResponseMapperTest {
     }
 
     @Test
-    void UserResponseMapperTest() {
+    void User_를_UserInformation_DTO_변환_성공_테스트() {
         // given
         // when
         UserResponseDTO.UserInformationResponseDTO userInformationResponseDTO = UserResponseMapper.INSTANCE.userToUserInformationResponseDTO(user);
 
         // then
         assertThat(userInformationResponseDTO.email())
-                .isEqualTo(EMAIL);
+                .isEqualTo(USER_EMAIL);
     }
 }
