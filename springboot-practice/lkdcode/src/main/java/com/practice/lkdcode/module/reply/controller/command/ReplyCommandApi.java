@@ -17,9 +17,9 @@ public class ReplyCommandApi {
     private final ReplyCommandUsecase replyCommandUsecase;
 
     @PostMapping("/{postId}")
-    public ReplyResponseDTO.CreateResponseDTO create(
+    public ReplyResponseDTO.Create create(
             @PathVariable(name = "postId") Long postId,
-            @RequestBody @Valid ReplyRequestDTO.CreateRequestDTO dto,
+            @Valid @RequestBody ReplyRequestDTO.Create dto,
             @AuthenticationPrincipal CustomUserDetails customUserDetails
     ) {
         return replyCommandUsecase.executeSave(postId, dto, customUserDetails);
