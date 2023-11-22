@@ -8,7 +8,7 @@ import java.util.List;
 public interface PostQueryUsecase {
     PostResponseDTO.Get retrieveFindById(final Long id);
 
-    List<PostResponseDTO.Get> retrieveFindAll(Pageable pageable);
+    List<PostResponseDTO.Get> retrieveFindAll(final Pageable pageable);
 
-    List<PostResponseDTO.Get> retrieveFindByTitleContaining(String keyword, Pageable pageable);
+    List<PostResponseDTO.Get> retrieveFindByTitleContaining(final String keyword, final Pageable pageable);
 }

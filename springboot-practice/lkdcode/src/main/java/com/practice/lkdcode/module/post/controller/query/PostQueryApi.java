@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -22,7 +25,7 @@ public class PostQueryApi {
 
     @GetMapping("/{id}")
     public PostResponse<PostResponseDTO.Get> getPostById(
-            @PathVariable(name = "id") final Long id
+            @PathVariable(name = "id") @Min(1) final Long id
     ) {
         PostResponseDTO.Get response = postQueryUsecase.retrieveFindById(id);
         return PostResponse.ok(response);
@@ -38,11 +41,10 @@ public class PostQueryApi {
 
     @GetMapping("/search/{keyword}")
     public PostResponse<List<PostResponseDTO.Get>> getPostsByKeyword(
-            @PathVariable(name = "keyword") String keyword,
+            @PathVariable(name = "keyword") @Size(min = 1) @NotBlank String keyword,
             @PageableDefault(size = 3, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         List<PostResponseDTO.Get> responseList = postQueryUsecase.retrieveFindByTitleContaining(keyword, pageable);
         return PostResponse.ok(responseList);
     }
-
 }

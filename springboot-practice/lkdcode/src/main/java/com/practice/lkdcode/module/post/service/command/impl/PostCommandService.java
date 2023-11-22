@@ -9,7 +9,8 @@ import com.practice.lkdcode.module.post.exception.custom.PostNotFoundByIdExcepti
 import com.practice.lkdcode.module.post.exception.custom.UnauthorizedPostDeleteException;
 import com.practice.lkdcode.module.post.exception.custom.UnauthorizedPostUpdateException;
 import com.practice.lkdcode.module.post.exception.custom.enums.PostErrorCode;
-import com.practice.lkdcode.module.post.mapper.PostMapper;
+import com.practice.lkdcode.module.post.mapper.PostRequestMapper;
+import com.practice.lkdcode.module.post.mapper.PostResponseMapper;
 import com.practice.lkdcode.module.post.service.command.PostCommandUsecase;
 import com.practice.lkdcode.module.user.domain.User;
 import com.practice.lkdcode.module.user.domain.repository.UserRepository;
@@ -23,8 +24,6 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class PostCommandService implements PostCommandUsecase {
-    private static final PostMapper.FromRequest FROM_REQUEST = PostMapper.FromRequest.INSTANCE;
-    private static final PostMapper.ToResponse TO_RESPONSE = PostMapper.ToResponse.INSTANCE;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
@@ -34,10 +33,10 @@ public class PostCommandService implements PostCommandUsecase {
 
         User user = loadUserFrom(userId);
 
-        Post post = FROM_REQUEST.createDTOToPost(request, user);
+        Post post = PostRequestMapper.INSTANCE.createDTOToPost(request, user);
         Post saved = postRepository.save(post);
 
-        return TO_RESPONSE.postToPostCreateDTO(saved);
+        return PostResponseMapper.INSTANCE.postToPostCreateDTO(saved);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class PostCommandService implements PostCommandUsecase {
 
         post.update(request.title(), request.content());
         postRepository.save(post);
-        return TO_RESPONSE.postToPostUpdateDTO(post);
+        return PostResponseMapper.INSTANCE.postToPostUpdateDTO(post);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class PostCommandService implements PostCommandUsecase {
         }
 
         postRepository.deleteById(id);
-        return TO_RESPONSE.postToPostDeleteDTO(post);
+        return PostResponseMapper.INSTANCE.postToPostDeleteDTO(post);
     }
 
     private static boolean isPostOwner(CustomUserDetails customUserDetails, Post post) {

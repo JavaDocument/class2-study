@@ -1,7 +1,7 @@
 package com.practice.lkdcode.module.user.service;
 
-import com.practice.lkdcode.module.user.controller.dto.UserDTO;
+import com.practice.lkdcode.module.user.controller.dto.response.UserResponseDTO;
 
 public interface UserQueryUsecase {
-    UserDTO.UserInformationDTO retrieveUserInformation(Long id);
+    UserResponseDTO.UserInformationResponseDTO retrieveUserInformation(Long id);
 }

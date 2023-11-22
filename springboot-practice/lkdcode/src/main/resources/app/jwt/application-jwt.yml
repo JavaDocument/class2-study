@@ -1,0 +1,5 @@
+app:
+  jwt:
+    issuer: lkdcode
+    secret_key: 1e7f185e535a5aa8c89dd7bf2b197c39bde03283e2dc0dbdd3359412e348ffd4d4ee46cc4edf9518e7c793821bc1625afed0156bcb50f5e3f3ff7dc38f8f883a
+    expired: 1_800_000
