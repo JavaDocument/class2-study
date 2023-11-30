@@ -13,7 +13,7 @@ class UserResponseMapperTest extends BaseRepositoryList {
 
     @BeforeEach
     void setUser() {
-        this.user = super.userRepository.findById(1L).orElseThrow();
+        this.user = super.userRepository.findById(USER_ID).orElseThrow();
     }
 
     @Test

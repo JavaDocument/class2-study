@@ -23,7 +23,7 @@ import java.util.List;
         , "/bulk/post-bulk-data.sql"
         , "/bulk/reply-bulk-data.sql"
 })
-public class BaseRepositoryList {
+public abstract class BaseRepositoryList {
     protected static final Long USER_ID = 1L;
     protected static final String USER_EMAIL = "test1@test.com";
 
