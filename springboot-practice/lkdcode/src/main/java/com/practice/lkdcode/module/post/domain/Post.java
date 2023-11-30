@@ -1,6 +1,7 @@
 package com.practice.lkdcode.module.post.domain;
 
 import com.practice.lkdcode.global.common.BaseEntity;
+import com.practice.lkdcode.module.like.domain.Like;
 import com.practice.lkdcode.module.reply.domain.Reply;
 import com.practice.lkdcode.module.user.domain.User;
 import lombok.AccessLevel;
@@ -28,6 +29,9 @@ public class Post extends BaseEntity {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reply> replies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes = new ArrayList<>();
 
     @Builder
     public Post(String title, String content, User user) {
