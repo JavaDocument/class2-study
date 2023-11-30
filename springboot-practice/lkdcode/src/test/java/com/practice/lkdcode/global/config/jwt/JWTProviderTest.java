@@ -39,7 +39,6 @@ class JWTProviderTest extends BaseRepositoryList {
         // given
         // when
         String token = jwtProvider.generateToken(user);
-
         // then
         assertThat(token)
                 .isNotNull();
@@ -59,6 +58,19 @@ class JWTProviderTest extends BaseRepositoryList {
     }
 
     @Test
+    void 유효하지_않은_토큰_검증_성공_테스트() {
+        // given
+        String token = "lkdcode";
+
+        // when
+        boolean validateToken = jwtProvider.validateToken(token);
+
+        // then
+        assertThat(validateToken)
+                .isFalse();
+    }
+
+    @Test
     void 유효한_토큰에서_유저_아이디_취득_성공_테스트() {
         // given
         String token = makeToken();
@@ -69,6 +81,9 @@ class JWTProviderTest extends BaseRepositoryList {
         // then
         assertThat(customUserDetails.getId())
                 .isEqualTo(USER_ID);
+
+        assertThat(customUserDetails.getId())
+                .isNotEqualTo(3L);
     }
 
     private String makeToken() {
