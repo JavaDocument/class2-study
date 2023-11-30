@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class PostQueryApi {
 
     @GetMapping("/search/{keyword}")
     public PostResponse<List<PostResponseDTO.Get>> getPostsByKeyword(
-            @PathVariable(name = "keyword") @Size(min = 1) @NotBlank String keyword,
+            @PathVariable(name = "keyword") @Size(min = 1) String keyword,
             @PageableDefault(size = 3, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         List<PostResponseDTO.Get> responseList = postQueryUsecase.retrieveFindByTitleContaining(keyword, pageable);
