@@ -1,6 +1,8 @@
 package com.practice.lkdcode.module.reply.domain.repository;
 
+import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.reply.domain.Reply;
+import com.practice.lkdcode.module.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
-    List<Reply> findFirst3ByPostId(Long postId);
+    List<Reply> findTop3ByPostOrderByIdAsc(Post post);
+
+    List<Reply> findAllByUser(User user);
 }

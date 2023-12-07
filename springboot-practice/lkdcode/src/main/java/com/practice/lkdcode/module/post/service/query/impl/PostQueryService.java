@@ -7,9 +7,15 @@ import com.practice.lkdcode.module.post.exception.custom.PostNotFoundByIdExcepti
 import com.practice.lkdcode.module.post.exception.custom.enums.PostErrorCode;
 import com.practice.lkdcode.module.post.mapper.PostResponseMapper;
 import com.practice.lkdcode.module.post.service.query.PostQueryUsecase;
+import com.practice.lkdcode.module.reply.controller.dto.response.ReplyResponseDTO;
+import com.practice.lkdcode.module.reply.domain.Reply;
+import com.practice.lkdcode.module.reply.domain.repository.ReplyRepository;
+import com.practice.lkdcode.module.reply.mapper.ReplyResponseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +24,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostQueryService implements PostQueryUsecase {
     private final PostRepository postRepository;
+    private final ReplyRepository replyRepository;
 
     @Override
     public PostResponseDTO.Get retrieveFindById(Long postId) {
         Post post = loadPostFrom(postId);
 
+        List<Reply> replies = replyRepository.findTop3ByPostOrderByIdAsc(post);
+        List<ReplyResponseDTO.Get> replyListToGetDTO = ReplyResponseMapper.INSTANCE.replyListToGetDTO(replies);
+
         return PostResponseMapper.INSTANCE
-                .postToPostGetDTO(post);
+                .postToPostGetDTO(post, replyListToGetDTO);
     }
 
     @Override

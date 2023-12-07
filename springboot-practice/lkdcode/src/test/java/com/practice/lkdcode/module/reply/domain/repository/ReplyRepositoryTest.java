@@ -1,5 +1,6 @@
 package com.practice.lkdcode.module.reply.domain.repository;
 
+import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.post.domain.repository.PostRepository;
 import com.practice.lkdcode.module.reply.domain.Reply;
 import com.practice.lkdcode.module.user.domain.repository.UserRepository;
@@ -32,15 +33,15 @@ class ReplyRepositoryTest {
     @Test
     void 게시글_번호로_댓글_목록_조회_성공_테스트() {
         // given
-        Long postId = 1L;
+        Post post = postRepository.findAll().get(0);
 
         // when
-        List<Reply> all = replyRepository.findFirst3ByPostId(postId);
+        List<Reply> all = replyRepository.findTop3ByPostOrderByIdAsc(post);
 
         // then
         for (Reply reply : all) {
             Assertions.assertThat(reply.getPost().getId())
-                    .isEqualTo(postId);
+                    .isEqualTo(post.getId());
         }
     }
 }

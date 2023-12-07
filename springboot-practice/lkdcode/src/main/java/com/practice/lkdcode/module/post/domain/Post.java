@@ -1,8 +1,6 @@
 package com.practice.lkdcode.module.post.domain;
 
 import com.practice.lkdcode.global.common.BaseEntity;
-import com.practice.lkdcode.module.like.domain.Like;
-import com.practice.lkdcode.module.reply.domain.Reply;
 import com.practice.lkdcode.module.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,14 +20,9 @@ public class Post extends BaseEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private User user;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reply> replies = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Like> likes = new ArrayList<>();
 
     @Builder
     public Post(String title, String content, User user) {

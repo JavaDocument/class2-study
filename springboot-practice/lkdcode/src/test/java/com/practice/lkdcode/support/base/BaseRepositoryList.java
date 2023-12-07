@@ -48,8 +48,6 @@ public abstract class BaseRepositoryList {
         for (User user : userList) {
             System.out.println(user.getId());
             System.out.println(user.getEmail());
-            System.out.println(user.getPosts());
-            System.out.println(user.getReplies());
         }
 
         List<Post> postList = postRepository.findAll();
@@ -60,7 +58,6 @@ public abstract class BaseRepositoryList {
             System.out.println(post.getContent());
             System.out.println(post.getUser().getId());
             System.out.println(post.getUser().getEmail());
-            System.out.println(post.getReplies());
         }
 
         List<Reply> replyList = replyRepository.findAll();
