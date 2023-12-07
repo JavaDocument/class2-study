@@ -3,8 +3,8 @@ package com.practice.lkdcode.module.post.mapper;
 import com.practice.lkdcode.module.post.controller.dto.response.PostResponseDTO;
 import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.reply.controller.dto.response.ReplyResponseDTO;
-import com.practice.lkdcode.module.reply.mapper.ReplyResponseMapper;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -21,20 +21,13 @@ public interface PostResponseMapper {
     @Mapping(target = "userEmail", source = "user.email")
     PostResponseDTO.Update postToPostUpdateDTO(Post post);
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "userEmail", source = "user.email")
-    @Mapping(target = "replies", ignore = true)
-    PostResponseDTO.Get postToPostGetDTO(Post post);
+    @Mapping(target = "id", source = "post.id")
+    @Mapping(target = "userEmail", source = "post.user.email")
+    PostResponseDTO.Get postToPostGetDTO(Post post, List<ReplyResponseDTO.Get> replies);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "userEmail", source = "user.email")
     PostResponseDTO.Delete postToPostDeleteDTO(Post post);
 
     List<PostResponseDTO.Get> postToPostListDTO(List<Post> posts);
-
-    @AfterMapping
-    default void mapReplies(@MappingTarget PostResponseDTO.Get.GetBuilder getDTOBuilder, Post post) {
-        List<ReplyResponseDTO.Get> replyList = ReplyResponseMapper.INSTANCE.replyListToGetDTO(post.getReplies());
-        getDTOBuilder.replies(replyList);
-    }
 }
