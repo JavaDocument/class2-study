@@ -10,6 +10,6 @@ import org.mapstruct.factory.Mappers;
 public interface UserRequestMapper {
     UserRequestMapper INSTANCE = Mappers.getMapper(UserRequestMapper.class);
 
-    @Mapping(source = "email", target = "email")
-    User signupDTOToUser(UserRequestDTO.UserSignupRequestDTO signupRequestDTO);
+    @Mapping(target = "password", source = "password")
+    User signupDTOToUser(UserRequestDTO.UserSignupRequestDTO signupRequestDTO, String password);
 }
