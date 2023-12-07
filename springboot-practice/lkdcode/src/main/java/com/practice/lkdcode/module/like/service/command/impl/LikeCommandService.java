@@ -31,7 +31,7 @@ public class LikeCommandService implements LikeCommandUsecase {
         User user = loadUserFrom(customUserDetails.getId());
         Post post = loadPostFrom(postId);
 
-        Like foundLike = likeRepository.findByUserAndPostForUpdate(user, post);//        Like foundLike = likeRepository.findByUserAndPost(user, post);
+        Like foundLike = likeRepository.findByUserAndPostForUpdate(user, post);
 
         String message = "";
 
