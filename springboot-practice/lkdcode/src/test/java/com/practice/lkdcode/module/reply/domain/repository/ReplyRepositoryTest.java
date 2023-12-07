@@ -35,7 +35,7 @@ class ReplyRepositoryTest {
         Long postId = 1L;
 
         // when
-        List<Reply> all = replyRepository.findByPostId(postId);
+        List<Reply> all = replyRepository.findFirst3ByPostId(postId);
 
         // then
         for (Reply reply : all) {

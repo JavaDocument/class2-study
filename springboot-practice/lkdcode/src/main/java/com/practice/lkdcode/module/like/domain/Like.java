@@ -20,19 +20,19 @@ public class Like extends BaseEntity {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Post post;
 
-    @Column(name = "status")
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private Status status = Status.LIKE;
 
     @Version
-    private int version;
+    private Long version;
 
     @Builder
     public Like(User user, Post post) {

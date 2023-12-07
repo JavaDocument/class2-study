@@ -20,7 +20,7 @@ class UserRequestMapperTest {
                 .build();
 
         // when
-        User user = UserRequestMapper.INSTANCE.signupDTOToUser(userSignupRequestDTO);
+        User user = UserRequestMapper.INSTANCE.signupDTOToUser(userSignupRequestDTO, password);
 
         // then
         assertThat(user.getEmail())

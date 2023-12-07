@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
-    List<Reply> findByPostId(Long postId);
+    List<Reply> findFirst3ByPostId(Long postId);
 }
