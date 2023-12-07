@@ -2,10 +2,14 @@ package com.practice.lkdcode.module.post.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.lkdcode.global.config.jwt.JWTProvider;
 import com.practice.lkdcode.module.post.controller.dto.request.PostRequestDTO;
 import com.practice.lkdcode.module.post.domain.Post;
 import com.practice.lkdcode.module.post.domain.repository.PostRepository;
 import com.practice.lkdcode.module.post.exception.custom.enums.PostErrorCode;
+import com.practice.lkdcode.module.user.domain.User;
+import com.practice.lkdcode.module.user.domain.repository.UserRepository;
+import com.practice.lkdcode.module.user.domain.status.UserStatus;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -33,7 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Transactional
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class PostApiControllerTest {
 
     private static final String URL_PREFIX = "/api/posts";
@@ -50,6 +53,12 @@ class PostApiControllerTest {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private JWTProvider jwtProvider;
+    private User user;
+    private String jwt;
 
     @BeforeEach
     void setMockMvc() {
@@ -57,7 +66,20 @@ class PostApiControllerTest {
                 .addFilter(new CharacterEncodingFilter("UTF-8", true))
                 .alwaysDo(print())
                 .build();
+
         postRepository.deleteAll();
+        userRepository.deleteAll();
+
+        userRepository.save(User.builder()
+                .userStatus(UserStatus.CREATED)
+                .email("test1@test.com")
+                .password("password123")
+                .build());
+
+        List<User> all = userRepository.findAll();
+        this.user = all.get(0);
+
+        this.jwt = jwtProvider.generateToken(user);
     }
 
     @Test
@@ -70,14 +92,12 @@ class PostApiControllerTest {
                 .content(content)
                 .build();
 
-        String requestBody = objectMapper.writeValueAsString(request);
-
         // when
         mockMvc.perform(post(URL_PREFIX)
+                .header("Authorization", "Bearer " + jwt)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(requestBody)
+                .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isOk());
-
 
         // then
         List<Post> all = postRepository.findAll();
@@ -97,13 +117,12 @@ class PostApiControllerTest {
                 .content(content)
                 .build();
 
-        String requestBody = objectMapper.writeValueAsString(request);
-
         // when
         // then
         MvcResult mvcResult = mockMvc.perform(post(URL_PREFIX)
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(requestBody)
+                        .content(objectMapper.writeValueAsString(request))
                 ).andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
                 .andReturn();
 
