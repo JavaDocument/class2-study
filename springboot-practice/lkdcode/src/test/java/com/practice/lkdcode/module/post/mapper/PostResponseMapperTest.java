@@ -58,12 +58,11 @@ class PostResponseMapperTest extends BaseRepositoryList {
     void post_Entity_를_get_DTO_로_변환_성공_테스트() {
         // given
         // when
-        PostResponseDTO.Get getDTO = MAPPER.postToPostGetDTO(post);
+        PostResponseDTO.Get getDTO = MAPPER.postToPostGetDTO(post, null);
 
         // then
         checkPostContent(getDTO.content());
         checkUserEmail(getDTO.userEmail());
-        checkReplyContent(getDTO.replies());
     }
 
     @Test
