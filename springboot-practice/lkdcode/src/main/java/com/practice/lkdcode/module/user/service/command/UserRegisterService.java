@@ -12,6 +12,7 @@ import com.practice.lkdcode.module.user.mapper.UserRequestMapper;
 import com.practice.lkdcode.module.user.mapper.UserResponseMapper;
 import com.practice.lkdcode.module.user.service.UserRegisterUsecase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class UserRegisterService implements UserRegisterUsecase {
     private final UserRepository userRepository;
     private final JWTProvider jwtProvider;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDTO.UserSignupResponseDTO executeUserSignup(UserRequestDTO.UserSignupRequestDTO userSignupRequestDTO) {
@@ -26,7 +28,9 @@ public class UserRegisterService implements UserRegisterUsecase {
             throw new UserEmailDuplicationException(UserErrorCode.USER_EMAIL_DUPLICATION_ERROR);
         }
 
-        User user = UserRequestMapper.INSTANCE.signupDTOToUser(userSignupRequestDTO);
+        String password = passwordEncoder.encode(userSignupRequestDTO.password());
+
+        User user = UserRequestMapper.INSTANCE.signupDTOToUser(userSignupRequestDTO, password);
         User saved = userRepository.save(user);
 
         return UserResponseMapper.INSTANCE.userToUserSignupResponseDTO(saved);
@@ -36,7 +40,7 @@ public class UserRegisterService implements UserRegisterUsecase {
     public UserResponseDTO.UserSignInJwtResponseDTO executeUserSignin(UserRequestDTO.UserSignInRequestDTO userSignInRequestDTO) {
         User user = loadUserFrom(userSignInRequestDTO.email());
 
-        if (user.getPassword().equals(userSignInRequestDTO.password())) {
+        if (passwordEncoder.matches(userSignInRequestDTO.password(), user.getPassword())) {
             String jwt = jwtProvider.generateToken(user);
             return UserResponseMapper.INSTANCE.tokenToUserSignInJwtResponseDTO(jwt);
         }
