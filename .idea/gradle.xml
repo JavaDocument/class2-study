@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/1026" />
+            <option value="$PROJECT_DIR$/springboot-practice" />
+            <option value="$PROJECT_DIR$/springboot-practice/jefeel" />
+            <option value="$PROJECT_DIR$/springboot-practice/jhlee9462" />
+            <option value="$PROJECT_DIR$/springboot-practice/joy0987" />
+            <option value="$PROJECT_DIR$/springboot-practice/lkdcode" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
