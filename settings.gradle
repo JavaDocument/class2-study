@@ -1,0 +1,7 @@
+rootProject.name = 'spring-boot-basic-practice'
+include '1026'
+include 'springboot-practice'
+include 'springboot-practice:lkdcode'
+include 'springboot-practice:jefeel'
+include 'springboot-practice:joy0987'
+include 'springboot-practice:jhlee9462'
